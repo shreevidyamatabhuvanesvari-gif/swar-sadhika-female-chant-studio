@@ -1,0 +1,10 @@
+{
+  "name": "swar-sadhika-female-chant-studio",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser-first Sanskrit local text library, model cache/discovery and 9:16 AI chant/video studio",
+  "scripts": {
+    "test": "node ./scripts/test-project.mjs"
+  }
+}
