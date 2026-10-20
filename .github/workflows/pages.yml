@@ -1,0 +1,57 @@
+name: Deploy Swar-Sadhika Female Chant Studio to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this new repository
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Verify application entry and core modules
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s index.html
+          test -s app.js
+          test -s index.js
+          test -s studio-enhancements.js
+          test -s model-cache.js
+          test -s manifest.webmanifest
+          node --version
+          node --check app.js
+          node --check index.js
+          node --check studio-enhancements.js
+          node --check model-cache.js
+          node --check service-worker.js
+          node --check vagdhenu-text.js
+          npm test
+          node scripts/test-rudrashtakam-input.mjs
+
+      - name: Upload website artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
