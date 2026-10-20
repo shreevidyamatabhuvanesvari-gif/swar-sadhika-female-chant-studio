@@ -16,7 +16,7 @@
     .tabs{display:flex;gap:7px;overflow-x:auto;padding-top:14px;scrollbar-width:thin;position:sticky;top:0;z-index:20;padding-bottom:8px;background:#102b55}.tab-btn{flex:0 0 auto;padding:8px 12px;color:#fff;border:1px solid #ffffff55;border-radius:999px;background:#ffffff12;font-size:.82rem}.tab-btn[aria-selected="true"]{background:#fff;color:var(--blue);font-weight:800}
     main{padding:16px 12px 32px}.notice{padding:11px 13px;margin-bottom:14px;background:#fff;border:1px solid #cad8ed;border-left:5px solid var(--blue2);border-radius:11px;font-size:.88rem}.workspace{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}.panel{min-width:0;overflow:hidden;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.panel-head{padding:14px 15px;border-bottom:1px solid #e8edf5}.panel-head h2{margin:0;font-size:1.05rem}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:.84rem}.panel-body{padding:14px}.field{display:grid;gap:6px;margin-bottom:13px}label,.field-label{font-size:.88rem;font-weight:750}.hint{font-size:.8rem;color:var(--muted)}textarea,input[type="text"],input[type="number"],select{width:100%;min-width:0;padding:10px;border:1px solid #c8d3e3;border-radius:9px;background:#fff;color:var(--ink)}textarea{min-height:145px;resize:vertical;line-height:1.8}input[type="file"]{width:100%;max-width:100%;padding:9px;border:1px dashed #b8c7dc;border-radius:9px;background:#f9fbff}input[type="range"]{width:100%;accent-color:var(--blue2)}input[type="checkbox"]{width:18px;height:18px}.check-row{display:flex;align-items:center;gap:8px;font-size:.88rem}.btn-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:0;min-height:42px;padding:9px 12px;border:1px solid transparent;border-radius:9px;text-align:center;text-decoration:none;font-weight:750;line-height:1.3}.primary{color:#fff;background:var(--blue);border-color:var(--blue)}.secondary{color:#173f7b;background:#edf3fc;border-color:#bfd0e8}.quiet{color:#45546c;background:#fff;border-color:#ccd6e5}.danger{color:#9c2727;background:#fff1f1;border-color:#e9bcbc}.btn.full{width:100%}.status{padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#f3f6fb;color:#40506a;font-size:.85rem;overflow-wrap:anywhere}.status.good{color:var(--green);background:#e8f7ef}.status.warn{color:var(--amber);background:#fff4d8}.status.bad{color:var(--red);background:#fff0f0}
     /* 9:16 पूर्वावलोकन: दृश्य wrapping कभी भी वाचन-queue को नहीं बदलता। */
-    .stage-wrap{padding:12px;background:#eaf0f8}.stage{position:relative;isolation:isolate;width:min(100%,390px);aspect-ratio:9/16;margin:0 auto;overflow:hidden;border-radius:12px;background:linear-gradient(145deg,#dce9ff,#687e9c);box-shadow:0 12px 28px #152a4b30}.stage-media{display:none;position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;background:#111827}.stage-media.active{display:block}.stage-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;text-align:center;color:#243b5e;background:radial-gradient(ellipse at 50% 32%,#f6e7d7 0,#d9c7bf 27%,transparent 60%)}.avatar-portrait{width:94%;height:88%;max-height:100%;object-fit:contain;filter:drop-shadow(0 9px 13px #13233a35)}.avatar-caption{position:absolute;bottom:12%;left:6%;right:6%;color:#fff;font-size:10px;opacity:.8;text-shadow:0 1px 5px #000}.stage.avatar-speaking #avatar-mouth{filter:drop-shadow(0 0 2px #f3a2a2)}#avatar-mouth{transition:ry .06s linear;transform-box:fill-box;transform-origin:center}.ai-sync-button{margin-top:10px;width:100%}.stage-empty strong{font-size:1.1rem}.stage-empty p{font-size:.84rem}.stage-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#0005,transparent 25%,transparent 66%,#0008)}.overlay-text{position:absolute;z-index:2;left:6%;right:6%;top:50%;transform:translateY(-50%);max-height:72%;overflow:hidden;text-align:center;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font-size:28px;font-weight:850;line-height:1.55;text-shadow:0 2px 3px #000,0 0 9px #000;-webkit-text-stroke:.25px #000;pointer-events:none}.overlay-text .c1{color:#fff36b}.overlay-text .c2{color:#ff7887}.overlay-text .c3{color:#7dffb0}.overlay-text .c4{color:#7ed8ff}.overlay-text .c5{color:#ffa5ff}.overlay-text .c6{color:#fff}.stage-label{position:absolute;z-index:3;top:8px;left:8px;max-width:calc(100% - 16px);padding:5px 8px;border-radius:6px;color:#fff;background:#0d1c33bd;font-size:.7rem}.screen-actions{position:absolute;z-index:4;left:8px;right:8px;bottom:8px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.screen-actions button{min-height:34px;padding:5px 9px;border:1px solid #ffffff77;border-radius:8px;color:#fff;background:#102b55dc;font-size:.78rem}.screen-actions button:disabled{opacity:.55}.stage-controls{display:grid;gap:10px;margin-top:12px}.progress-track{height:9px;overflow:hidden;border-radius:99px;background:#e7edf5}.progress-bar{width:0;height:100%;background:#286ac3}.progress-meta{display:flex;justify-content:space-between;gap:10px;margin:7px 0;font-size:.79rem}.list{display:grid;gap:8px;margin:12px 0 0;padding:0;list-style:none}.list-item{padding:10px;border:1px solid #dae3ef;border-radius:9px}.item-title{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9rem}.item-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.small-btn{padding:5px 8px;min-height:32px;border:1px solid #cbd7e8;border-radius:7px;background:#f4f7fc;color:#214779}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}.media-player{width:100%;margin-top:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metric{padding:10px;border:1px solid var(--line);border-radius:9px;background:#f8faff;font-size:.82rem}.metric strong{display:block}.footer{padding:0 12px 24px;color:#697588;font-size:.8rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .stage-wrap{padding:12px;background:#eaf0f8}.stage{position:relative;isolation:isolate;width:min(100%,390px);aspect-ratio:9/16;margin:0 auto;overflow:hidden;border-radius:12px;background:linear-gradient(145deg,#dce9ff,#687e9c);box-shadow:0 12px 28px #152a4b30}.stage-media{display:none;position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;background:#111827}.stage-media.active{display:block}.stage-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;text-align:center;color:#243b5e;background:radial-gradient(ellipse at 50% 32%,#f6e7d7 0,#d9c7bf 27%,transparent 60%)}.avatar-portrait{width:94%;height:88%;max-height:100%;object-fit:contain;filter:drop-shadow(0 9px 13px #13233a35)}.user-avatar-portrait{width:100%;height:100%;object-fit:cover;object-position:center 24%;border-radius:10px}.avatar-caption{position:absolute;bottom:12%;left:6%;right:6%;color:#fff;font-size:10px;opacity:.8;text-shadow:0 1px 5px #000}.stage.avatar-speaking #avatar-mouth{filter:drop-shadow(0 0 2px #f3a2a2)}#avatar-mouth{transition:ry .06s linear;transform-box:fill-box;transform-origin:center} .avatar-mouth-overlay{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}.avatar-caption{z-index:2}.ai-sync-button{margin-top:10px;width:100%}.stage-empty strong{font-size:1.1rem}.stage-empty p{font-size:.84rem}.stage-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#0005,transparent 25%,transparent 66%,#0008)}.overlay-text{position:absolute;z-index:2;left:6%;right:6%;top:50%;transform:translateY(-50%);max-height:72%;overflow:hidden;text-align:center;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font-size:28px;font-weight:850;line-height:1.55;text-shadow:0 2px 3px #000,0 0 9px #000;-webkit-text-stroke:.25px #000;pointer-events:none}.overlay-text .c1{color:#fff36b}.overlay-text .c2{color:#ff7887}.overlay-text .c3{color:#7dffb0}.overlay-text .c4{color:#7ed8ff}.overlay-text .c5{color:#ffa5ff}.overlay-text .c6{color:#fff}.stage-label{position:absolute;z-index:3;top:8px;left:8px;max-width:calc(100% - 16px);padding:5px 8px;border-radius:6px;color:#fff;background:#0d1c33bd;font-size:.7rem}.screen-actions{position:absolute;z-index:4;left:8px;right:8px;bottom:8px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.screen-actions button{min-height:34px;padding:5px 9px;border:1px solid #ffffff77;border-radius:8px;color:#fff;background:#102b55dc;font-size:.78rem}.screen-actions button:disabled{opacity:.55}.stage-controls{display:grid;gap:10px;margin-top:12px}.progress-track{height:9px;overflow:hidden;border-radius:99px;background:#e7edf5}.progress-bar{width:0;height:100%;background:#286ac3}.progress-meta{display:flex;justify-content:space-between;gap:10px;margin:7px 0;font-size:.79rem}.list{display:grid;gap:8px;margin:12px 0 0;padding:0;list-style:none}.list-item{padding:10px;border:1px solid #dae3ef;border-radius:9px}.item-title{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9rem}.item-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.small-btn{padding:5px 8px;min-height:32px;border:1px solid #cbd7e8;border-radius:7px;background:#f4f7fc;color:#214779}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}.media-player{width:100%;margin-top:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metric{padding:10px;border:1px solid var(--line);border-radius:9px;background:#f8faff;font-size:.82rem}.metric strong{display:block}.footer{padding:0 12px 24px;color:#697588;font-size:.8rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     #stage:fullscreen{width:min(100vw,56.25dvh);height:min(100dvh,177.78vw);max-width:none;aspect-ratio:9/16;margin:auto;border-radius:0;box-shadow:none;background:#000}
     #stage:fullscreen .overlay-text{max-height:72%;font-size:clamp(22px,5.3vw,48px)}
     /* Fullscreen playback: the label and transport buttons must not cover the mantra. */
@@ -44,20 +44,6 @@
     .file-link-list{display:grid;gap:7px;padding:0;list-style:none}
     .file-link-list li{padding:9px;border:1px solid var(--line);border-radius:8px;background:#fafcff;overflow-wrap:anywhere}
     @media(max-width:640px){.enhancement-grid{grid-template-columns:1fr}.enhancement-actions>*{flex:1 1 100%}}
-  
-    .brain-launcher{max-width:1100px;margin:18px auto;padding:0 16px}
-    .brain-launcher-head{margin:0 0 12px;padding:0 2px}
-    .brain-launcher-head h2{margin:0;font-size:1.15rem;color:var(--ink)}
-    .brain-launcher-head p{margin:5px 0 0;color:var(--muted);font-size:.9rem}
-    .brain-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .brain-card{display:flex;flex-direction:column;gap:7px;min-width:0;padding:15px;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
-    .brain-card:hover{border-color:var(--blue2);transform:translateY(-1px)}
-    .brain-card:focus-visible{outline:3px solid #f0a51b;outline-offset:3px}
-    .brain-card strong{font-size:1rem;color:var(--blue)}
-    .brain-card span{font-size:.86rem;color:var(--muted)}
-    .brain-card .brain-open{margin-top:4px;font-size:.82rem;font-weight:700;color:var(--green)}
-    .brain-launcher-note{margin:12px 2px 0;padding:10px 12px;color:#69400a;background:#fff7e8;border:1px solid #efd4a4;border-radius:10px;font-size:.84rem}
-    @media(max-width:600px){.brain-grid{grid-template-columns:1fr}.brain-launcher{padding:0 12px}}
   </style>
 </head>
 <body>
@@ -80,68 +66,21 @@
   </nav>
 </header>
 <main>
-  <div class="notice"><strong>महत्त्वपूर्ण:</strong> वर्तमान स्टूडियो के नियंत्रण नीचे एक ही पेज पर हैं; ऊपर के टैब संबंधित अनुभाग तक ले जाते हैं। पाठ कतार में हर खाली न होने वाली मूल पंक्ति एक queue item होती है। Browser TTS की आवाज़ डिवाइस और ब्राउज़र पर निर्भर करती है; महिला-स्वर या वैदिक उच्चारण की गारंटी नहीं है। वास्तविक AI गायन तभी सफल माना जाएगा जब स्थानीय मॉडल inference और उत्पन्न ऑडियो दोनों की जाँच हो।</div>
-  <section class="brain-launcher" aria-labelledby="brain-launcher-title">
-    <div class="brain-launcher-head">
-      <h2 id="brain-launcher-title">स्वर-साधिका के चार AI मस्तिष्क मॉड्यूल</h2>
-      <p>हर मॉड्यूल का अलग पृष्ठ होगा, ताकि मुख्य इंडेक्स साफ़ रहे और परीक्षण अलग-अलग किए जा सकें।</p>
-    </div>
-    <div class="brain-grid">
-      <a class="brain-card" href="./sanskrit-intelligence.html" aria-label="संस्कृत एवं उच्चारण बुद्धि मॉड्यूल खोलें">
-        <strong>१. संस्कृत एवं उच्चारण बुद्धि</strong>
-        <span>देवनागरी पाठ, संधि, पद-विभाजन, मात्रा, उच्चारण और छन्द-संरचना पर काम।</span>
-        <span class="brain-open">अलग मॉड्यूल पृष्ठ खोलें →</span>
-      </a>
-      <a class="brain-card" href="./audio-analysis.html" aria-label="ऑडियो श्रवण एवं भाव विश्लेषण मॉड्यूल खोलें">
-        <strong>२. ऑडियो श्रवण एवं भाव विश्लेषण</strong>
-        <span>चुनी गई ध्वनि/वीडियो से सुर, लय, गति, विराम और भाव-संबंधी संकेतों का विश्लेषण।</span>
-        <span class="brain-open">अलग मॉड्यूल पृष्ठ खोलें →</span>
-      </a>
-      <a class="brain-card" href="./learning-memory.html" aria-label="अधिगम एवं स्मृति मॉड्यूल खोलें">
-        <strong>३. अधिगम एवं स्मृति</strong>
-        <span>विश्लेषित विशेषताओं, उच्चारण-सुधार और उपयोगकर्ता की पसंद को स्थानीय रूप से सहेजना।</span>
-        <span class="brain-open">अलग मॉड्यूल पृष्ठ खोलें →</span>
-      </a>
-      <a class="brain-card" href="./singing-quality.html" aria-label="AI गायन एवं गुणवत्ता मूल्यांकन मॉड्यूल खोलें">
-        <strong>४. AI गायन एवं गुणवत्ता मूल्यांकन</strong>
-        <span>गायन-सक्षम मॉडल, वास्तविक ऑडियो आउटपुट और गुणवत्ता-जाँच को अलग रखना।</span>
-        <span class="brain-open">अलग मॉड्यूल पृष्ठ खोलें →</span>
-      </a>
-    </div>
-    <p class="brain-launcher-note"><strong>कार्यान्वयन स्थिति:</strong> इस बदलाव में इंडेक्स पर मॉड्यूल-नेविगेशन जोड़ा गया है। चार अलग मॉड्यूल पृष्ठ अगले चरण में बनाने हैं; जब तक वे फ़ाइलें रिपॉज़िटरी में न जुड़ें, उनके लिंक खुलेंगे नहीं।</p>
-  </section>
+  <div class="notice"><strong>महत्त्वपूर्ण:</strong> सभी नियंत्रण एक ही पेज पर हैं; ऊपर के टैब संबंधित अनुभाग तक ले जाते हैं। पाठ कतार में स्क्रीन के आकार के अनुसार शब्दों को अलग वाचन-खंडों में नहीं बाँटा जाता। हर खाली न होने वाली मूल पंक्ति एक queue item होती है। Browser TTS पर उपलब्ध आवाज़ डिवाइस और ब्राउज़र पर निर्भर करती है; महिला-स्वर या वैदिक उच्चारण की गारंटी नहीं है। वास्तविक AI गायन तभी सफल माना जाएगा जब स्थानीय मॉडल inference और ऑडियो दोनों जाँचे गए हों।</div>
   <div class="workspace">
     <section class="panel" id="panel-studio" data-panel="studio">
       <div class="panel-head"><h2>9:16 वीडियो स्टूडियो</h2><p>फोटो या वीडियो के ऊपर वर्तमान संस्कृत पाठ। प्ले बटन दबाने पर दृश्य 9:16 फुलस्क्रीन में खुलेगा।</p></div>
       <div class="stage-wrap">
         <div class="stage" id="stage">
           <div class="stage-empty" id="stage-empty" aria-label="स्वर-साधिका आभासी स्त्री-अवतार">
-            <svg class="avatar-portrait" viewBox="0 0 360 600" role="img" aria-label="सरल चित्रात्मक स्त्री-अवतार; होंठों की गति ऑडियो स्तर के अनुसार अनुमानित होगी">
-              <defs>
-                <linearGradient id="avatarHair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#211d28"/><stop offset=".5" stop-color="#090b14"/><stop offset="1" stop-color="#3b2932"/></linearGradient>
-                <linearGradient id="avatarSkin" x1="0" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#f5d4c0"/><stop offset="1" stop-color="#c88772"/></linearGradient>
-                <linearGradient id="avatarCloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5d58c"/><stop offset="1" stop-color="#b27732"/></linearGradient>
-              </defs>
-              <ellipse cx="180" cy="555" rx="139" ry="26" fill="#1a2a43" opacity=".15"/>
-              <path d="M61 254 Q35 77 180 46 Q325 74 299 267 L314 430 Q284 478 247 414 L111 421 Q72 478 43 430Z" fill="url(#avatarHair)"/>
-              <path d="M92 420 Q87 378 91 335 L269 335 Q275 386 268 423 Q328 445 346 550 L14 550 Q33 448 92 420Z" fill="url(#avatarCloth)"/>
-              <path d="M119 376 Q180 408 241 376 L253 429 Q180 482 107 429Z" fill="url(#avatarSkin)"/>
-              <path d="M89 160 Q104 80 180 79 Q254 80 272 160 L267 270 Q258 345 180 369 Q102 344 93 270Z" fill="url(#avatarSkin)"/>
-              <path d="M88 178 Q68 74 148 54 Q230 32 277 103 Q290 127 274 201 L260 166 Q236 148 228 118 Q176 154 107 147 L101 216Z" fill="url(#avatarHair)"/>
-              <path d="M103 216 Q81 199 83 240 Q87 266 103 268Z" fill="url(#avatarSkin)"/>
-              <path d="M257 216 Q279 199 277 240 Q273 266 257 268Z" fill="url(#avatarSkin)"/>
-              <ellipse cx="137" cy="219" rx="18" ry="10" fill="#fff8ef"/><ellipse cx="223" cy="219" rx="18" ry="10" fill="#fff8ef"/>
-              <ellipse cx="139" cy="220" rx="6" ry="8" fill="#352329"/><ellipse cx="221" cy="220" rx="6" ry="8" fill="#352329"/>
-              <path d="M117 201 Q137 188 155 200 M205 200 Q224 188 243 202" fill="none" stroke="#432b2b" stroke-width="6" stroke-linecap="round"/>
-              <path d="M181 226 Q169 256 183 260" fill="none" stroke="#b87565" stroke-width="4" stroke-linecap="round"/>
-              <path d="M154 286 Q180 301 206 286 Q181 319 154 286Z" fill="#9a3546" opacity=".35"/>
-              <ellipse id="avatar-mouth" cx="180" cy="293" rx="15" ry="3" fill="#8b2f40" stroke="#672434" stroke-width="2"/>
-              <path d="M155 282 Q180 291 205 282" fill="none" stroke="#a85761" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="101" cy="272" r="8" fill="#e3b45d"/><circle cx="259" cy="272" r="8" fill="#e3b45d"/>
-              <path d="M124 400 Q180 431 236 400 L252 453 Q180 494 108 453Z" fill="#7a2b47" opacity=".86"/>
-              <path d="M180 425 L180 518" stroke="#edc879" stroke-width="4" opacity=".8"/>
+            <img class="avatar-portrait user-avatar-portrait" src="swar-sadhika-user-avatar.png" alt="स्वर-साधिका के लिए तैयार किया गया आभासी स्त्री-अवतार" loading="eager" decoding="async">
+            <svg id="avatar-mouth-overlay" class="avatar-mouth-overlay" viewBox="0 0 941 1672" preserveAspectRatio="none" aria-hidden="true">
+              <ellipse id="mouth-shadow" cx="441" cy="481" rx="48" ry="13" fill="#9e5b59" opacity="0"/>
+              <path id="mouth-cavity" d="M393 478 C408 472 425 477 441 479 C457 477 474 472 489 478 C485 486 466 491 441 492 C416 491 397 486 393 478Z" fill="#642638" opacity="0"/>
+              <path id="mouth-teeth" d="M403 480 C423 484 459 484 479 480 C468 487 454 488 441 488 C426 488 413 486 403 480Z" fill="#fff4e8" opacity="0"/>
+              <path id="mouth-tongue" d="M421 490 Q441 494 461 490 Q452 497 441 497 Q430 497 421 490Z" fill="#c76579" opacity="0"/>
             </svg>
-            <div class="avatar-caption">स्त्री-अवतार · होंठों की गति ऑडियो के स्तर के अनुसार अनुमानित</div>
+            <div class="avatar-caption">स्वर-साधिका · ऑडियो-सिंक मुख-एनीमेशन</div>
           </div>
           <img id="photo-preview" class="stage-media" alt="पृष्ठभूमि फोटो">
           <video id="video-preview" class="stage-media" playsinline preload="metadata"></video>
@@ -380,6 +319,8 @@
   let aiStageActive = false;
   let aiStageText = '';
   let aiStageLines = [];
+  let aiStageCurrentTime = 0;
+  let aiStageDuration = 0;
   let aiVideoWasMuted = null;
   function syncDisplaySegments(text) {
     const sourceLines = String(text || '').replace(/\r\n?/g,'\n').split('\n').filter(line => line.trim());
@@ -396,17 +337,58 @@
     for (let i=0;i<weights.length;i++) { target -= weights[i]; if (target < 0 || i===weights.length-1) return aiStageLines[i]; }
     return aiStageLines[aiStageLines.length-1];
   }
+  function estimateMouthViseme(text, time, duration) {
+    const source = String(text || '').normalize('NFC');
+    let units = [];
+    try {
+      if (typeof Intl !== 'undefined' && Intl.Segmenter) units = Array.from(new Intl.Segmenter('hi', {granularity:'grapheme'}).segment(source), x => x.segment);
+      else units = Array.from(source);
+    } catch (_) { units = Array.from(source); }
+    units = units.filter(x => /[\u0905-\u0939\u0958-\u095f]/u.test(x) || /[\u093e-\u094d]/u.test(x));
+    if (!units.length) return 'neutral';
+    const progress = Number.isFinite(duration) && duration > 0 ? Math.max(0, Math.min(.9999, (Number(time)||0)/duration)) : 0;
+    const unit = units[Math.min(units.length - 1, Math.floor(progress * units.length))] || '';
+    if (/[उऊओऔुूोौ]/u.test(unit)) return 'round';
+    if (/[आाऐै]/u.test(unit)) return 'wide';
+    if (/[इईएिीे]/u.test(unit)) return 'narrow';
+    if (/[मपबफव]/u.test(unit)) return 'closed';
+    return 'open';
+  }
   function setAvatarMouthLevel(level) {
-    const mouth = $('avatar-mouth');
-    if (!mouth) return;
-    const amount = Math.max(0, Math.min(1, Number(level)||0));
-    mouth.setAttribute('ry', String((2.5 + amount * 10).toFixed(1)));
+    const cavity = $('mouth-cavity'), teeth = $('mouth-teeth'), tongue = $('mouth-tongue'), shadow = $('mouth-shadow');
+    if (!cavity || !teeth || !tongue || !shadow) return;
+    let amount = Math.max(0, Math.min(1, Number(level)||0));
+    const syncedAudio = $('ss-ai-audio');
+    if (syncedAudio) {
+      aiStageCurrentTime = Number(syncedAudio.currentTime) || aiStageCurrentTime;
+      aiStageDuration = Number(syncedAudio.duration) || aiStageDuration;
+    }
+    const viseme = estimateMouthViseme(aiStageText, aiStageCurrentTime, aiStageDuration);
+    if (!aiStageActive) amount = 0;
+    if (viseme === 'closed') amount *= .06;
+    const widthFactor = viseme === 'round' ? .70 : viseme === 'wide' ? 1.02 : viseme === 'narrow' ? .84 : 1;
+    const cx = 441, cy = 479, w = 47 * widthFactor, openH = Math.max(.5, amount * (viseme === 'round' ? 15 : 21));
+    const L = cx-w, R = cx+w, topY = cy - amount*17, cornerTopY = cy - amount*7, cornerBottomY = cy + amount*5, bottom = cy + 1.5 + openH;
+    const cavityD = `M ${L.toFixed(1)} ${cornerTopY.toFixed(1)} C ${(cx-w*.67).toFixed(1)} ${(topY-2).toFixed(1)} ${(cx-w*.25).toFixed(1)} ${(topY-1).toFixed(1)} ${cx} ${topY.toFixed(1)} C ${(cx+w*.25).toFixed(1)} ${(topY-1).toFixed(1)} ${(cx+w*.67).toFixed(1)} ${(topY-2).toFixed(1)} ${R.toFixed(1)} ${cornerTopY.toFixed(1)} C ${(R-4).toFixed(1)} ${cornerBottomY.toFixed(1)} ${(cx+w*.35).toFixed(1)} ${bottom.toFixed(1)} ${cx} ${bottom.toFixed(1)} C ${(cx-w*.35).toFixed(1)} ${bottom.toFixed(1)} ${(L+4).toFixed(1)} ${cornerBottomY.toFixed(1)} ${L.toFixed(1)} ${cornerTopY.toFixed(1)} Z`;
+    cavity.setAttribute('d', cavityD);
+    const cavityOpacity = amount < .06 ? 0 : Math.min(.96, (amount-.035)*1.65);
+    cavity.setAttribute('opacity', String(cavityOpacity));
+    const toothTop = topY + 2, toothBottom = topY + Math.min(2 + openH*.48, 7.5);
+    teeth.setAttribute('d', `M ${(cx-w*.69).toFixed(1)} ${toothTop.toFixed(1)} Q ${cx} ${(toothTop+1.4).toFixed(1)} ${(cx+w*.69).toFixed(1)} ${toothTop.toFixed(1)} Q ${cx} ${toothBottom.toFixed(1)} ${(cx-w*.69).toFixed(1)} ${toothTop.toFixed(1)} Z`);
+    const teethOpacity = amount > .24 && viseme !== 'round' && viseme !== 'closed' ? Math.min(.97, (amount-.12)*1.6) : 0;
+    teeth.setAttribute('opacity', String(teethOpacity));
+    tongue.setAttribute('d', `M ${(cx-w*.37).toFixed(1)} ${(cy+Math.min(openH*.57,10)).toFixed(1)} Q ${cx} ${(cy+Math.min(openH*.96,16)).toFixed(1)} ${(cx+w*.37).toFixed(1)} ${(cy+Math.min(openH*.57,10)).toFixed(1)} Q ${cx} ${(cy+Math.min(openH*.82,14)).toFixed(1)} ${(cx-w*.37).toFixed(1)} ${(cy+Math.min(openH*.57,10)).toFixed(1)} Z`);
+    tongue.setAttribute('opacity', amount > .55 && viseme !== 'round' && viseme !== 'closed' ? '.62' : '0');
+    shadow.setAttribute('rx', String(w.toFixed(1)));
+    shadow.setAttribute('ry', String((8+amount*5).toFixed(1)));
+    shadow.setAttribute('opacity', String(amount*.12));
   }
   window.SwarSadhikaStage = {
     beginAiPlayback(text) {
       aiStageActive = true;
       aiStageText = String(text || '');
       aiStageLines = syncDisplaySegments(aiStageText);
+      aiStageCurrentTime = 0; aiStageDuration = 0;
       const mediaActive = video.classList.contains('active');
       if (mediaActive) {
         if (aiVideoWasMuted === null) aiVideoWasMuted = video.muted;
@@ -421,7 +403,9 @@
       if (!aiStageActive) this.beginAiPlayback(text);
       const expectedText = String(text || '');
       if (expectedText !== aiStageText) { aiStageText = expectedText; aiStageLines = syncDisplaySegments(expectedText); }
-      renderOverlay(selectAiLineAt(Number(time), Number(duration)));
+      aiStageCurrentTime = Number(time) || 0;
+      aiStageDuration = Number(duration) || 0;
+      renderOverlay(selectAiLineAt(aiStageCurrentTime, aiStageDuration));
     },
     setMouthLevel(level) { setAvatarMouthLevel(level); },
     async requestStageFullscreen() {
@@ -431,6 +415,7 @@
       aiStageActive = false;
       aiStageText = '';
       aiStageLines = [];
+      aiStageCurrentTime = 0; aiStageDuration = 0;
       setAvatarMouthLevel(0);
       stage.classList.remove('ai-playback-active');
       if (aiVideoWasMuted !== null) { video.muted = aiVideoWasMuted; aiVideoWasMuted = null; }
