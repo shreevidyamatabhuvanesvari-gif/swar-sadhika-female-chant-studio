@@ -21,7 +21,7 @@
 
 'use strict';
 
-const SHELL_CACHE = 'swar-sadhika-female-chant-shell-v8';
+const SHELL_CACHE = 'swar-sadhika-female-chant-shell-v10';
 const REMOTE_CACHE = 'swar-sadhika-remote-runtime-v1';
 const MODEL_CACHE = 'swar-sadhika-vagdhenu-models-v1';
 const MODEL_META_CACHE = 'swar-sadhika-vagdhenu-models-meta-v2';
@@ -451,7 +451,8 @@ self.addEventListener('activate', event => {
     await Promise.all(
       keys
         .filter(key =>
-          key.startsWith('swar-sadhika-shell-') &&
+          (key.startsWith('swar-sadhika-shell-') ||
+           key.startsWith('swar-sadhika-female-chant-shell-')) &&
           key !== SHELL_CACHE
         )
         .map(key => caches.delete(key))
