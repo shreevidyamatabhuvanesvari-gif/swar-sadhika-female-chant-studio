@@ -72,8 +72,8 @@
       <div class="panel-head"><h2>9:16 वीडियो स्टूडियो</h2><p>फोटो या वीडियो के ऊपर वर्तमान संस्कृत पाठ। प्ले बटन दबाने पर दृश्य 9:16 फुलस्क्रीन में खुलेगा।</p></div>
       <div class="stage-wrap">
         <div class="stage" id="stage">
-          <img id="avatar-default" class="stage-media active" src="./swar-sadhika-user-photo.jpg" alt="उपयोगकर्ता द्वारा दी गई मूल स्वर-साधिका फोटो" decoding="async" fetchpriority="high">
-          <svg id="avatar-mouth-layer" viewBox="0 0 1000 1777.7778" preserveAspectRatio="none" aria-hidden="true" hidden>
+          <img id="avatar-default" class="stage-media active" src="./swar-sadhika-user-photo.jpg" alt="उपयोगकर्ता द्वारा दी गई मूल स्वर-साधिका फोटो" decoding="async" fetchpriority="high" loading="eager">
+          <svg id="avatar-mouth-layer" viewBox="0 0 1000 1777.7778" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="ss-lips-skin" x1="0" y1="0" x2="0.15" y2="1"><stop offset="0" stop-color="#e5a18b"/><stop offset=".55" stop-color="#df967f"/><stop offset="1" stop-color="#e5a18e"/></linearGradient>
               <filter id="ss-lips-soften" x="-20%" y="-35%" width="140%" height="170%"><feGaussianBlur stdDeviation="2.2"/></filter>
@@ -250,6 +250,21 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const synth = ('speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) ? window.speechSynthesis : null;
+  const defaultAvatarImage = $('avatar-default');
+  if (defaultAvatarImage) {
+    defaultAvatarImage.addEventListener('error', () => {
+      console.error('[Swar-Sadhika] Default photo failed to load:', defaultAvatarImage.currentSrc || defaultAvatarImage.src);
+      const oldNote = $('avatar-load-error');
+      if (oldNote) oldNote.remove();
+      const note = document.createElement('div');
+      note.id = 'avatar-load-error';
+      note.className = 'status bad';
+      note.setAttribute('role', 'alert');
+      note.textContent = 'अवतार फोटो लोड नहीं हुई। जाँचें कि swar-sadhika-user-photo.jpg और index.html रिपॉज़िटरी के मूल स्तर पर अपलोड हैं और फ़ाइल का नाम बिल्कुल समान है।';
+      $('panel-studio')?.prepend(note);
+    });
+    defaultAvatarImage.addEventListener('load', () => $('avatar-load-error')?.remove());
+  }
   const canvas = $('render-canvas');
   const ctx = canvas.getContext('2d', {alpha:false});
   const stage = $('stage');
