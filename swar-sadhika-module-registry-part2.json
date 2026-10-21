@@ -1,5 +1,13 @@
 {
   "schema": "swar-sadhika-module-registry/v1",
-  "version": 1,
-  "modules": []
+  "version": 2,
+  "modules": [
+    {
+      "id": "sanskrit-brain-ui",
+      "path": "swar-sadhika-brain-integration-part2.js",
+      "enabled": true,
+      "required": false,
+      "dependsOn": []
+    }
+  ]
 }
