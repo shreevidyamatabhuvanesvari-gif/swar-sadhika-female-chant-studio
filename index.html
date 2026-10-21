@@ -358,9 +358,13 @@
     for (let i=0;i<weights.length;i++) { target -= weights[i]; if (target < 0 || i===weights.length-1) return aiStageLines[i]; }
     return aiStageLines[aiStageLines.length-1];
   }
-  function setAvatarMouthLevel(level) {
+  function setAvatarMouthVisualState(level) {
     const amount = Math.max(0, Math.min(1, Number(level) || 0));
     stage.classList.toggle('avatar-speaking', amount > 0.055);
+  }
+  function setAvatarMouthLevel(level) {
+    const amount = Math.max(0, Math.min(1, Number(level) || 0));
+    setAvatarMouthVisualState(amount);
     window.SwarSadhikaLipSync?.setLevel(amount);
   }
   window.SwarSadhikaStage = {
@@ -385,6 +389,7 @@
       renderOverlay(selectAiLineAt(Number(time), Number(duration)));
     },
     setMouthLevel(level) { setAvatarMouthLevel(level); },
+    setMouthVisualState(level) { setAvatarMouthVisualState(level); },
     async requestStageFullscreen() {
       try { if (!document.fullscreenElement && stage.requestFullscreen) await stage.requestFullscreen(); } catch (_) {}
     },
@@ -598,7 +603,7 @@
     const avatar=$('avatar-default');
     if(video.dataset.active==='true'&&currentVideo>=0&&video.readyState>=2&&video.videoWidth&&video.videoHeight)cover(video,video.videoWidth,video.videoHeight,w,h);else if(photo.dataset.active==='true'&&photo.complete&&photo.naturalWidth)cover(photo,photo.naturalWidth,photo.naturalHeight,w,h);else if(avatar?.complete&&avatar.naturalWidth)cover(avatar,avatar.naturalWidth,avatar.naturalHeight,w,h);
     const shade=ctx.createLinearGradient(0,0,0,h);shade.addColorStop(0,'#0004');shade.addColorStop(.45,'#0000');shade.addColorStop(1,'#0007');ctx.fillStyle=shade;ctx.fillRect(0,0,w,h);
-    if(photo.dataset.active!=='true'&&video.dataset.active!=='true')window.SwarSadhikaLipSync?.drawToCanvas(ctx,w,h);
+    if(photo.dataset.active!=='true'&&video.dataset.active!=='true'&&recorder&&recorder.state==='recording')window.SwarSadhikaLipSync?.drawToCanvas(ctx,w,h);
     const text=shownText();if(!text)return;let fontSize=Math.max(32,Math.min(88,Number($('text-size').value)*2));ctx.font=`850 ${fontSize}px "Noto Sans Devanagari","Nirmala UI",Mangal,sans-serif`;const maxWidth=w*.82;const lines=[];
     for(const lineText of text.split('\n')){let visualLine='';for(const unit of graphemes(lineText)){const test=visualLine+unit;if(visualLine&&ctx.measureText(test).width>maxWidth){lines.push(visualLine);visualLine=unit;}else visualLine=test;}if(visualLine)lines.push(visualLine);}
     if(!lines.length)return;const lineHeight=fontSize*1.45,blockHeight=lines.length*lineHeight;let top=$('text-position').value==='top'?h*.12:$('text-position').value==='bottom'?h*.82-blockHeight:(h-blockHeight)/2;top=Math.max(20,Math.min(h-blockHeight-20,top));let colorIndex=0;ctx.textAlign='center';ctx.textBaseline='alphabetic';
@@ -622,6 +627,5 @@
 </script>
   <script type="module" src="./app.js"></script>
   <script type="module" src="./studio-enhancements.js"></script>
-  <script src="./lipsync-engine.js" defer></script>
 </body>
 </html>
