@@ -1162,6 +1162,15 @@ function registerOfflineWorker() {
     });
 }
 
+
+function setStageLipSyncLevel(value) {
+  const level = Math.max(0, Math.min(1, Number(value) || 0));
+  // Direct integration: the audio analyser in this file feeds the mouth renderer.
+  window.SwarSadhikaLipSync?.setLevel(level);
+  // Keep only the stage speaking indicator here; do not send the level twice.
+  window.SwarSadhikaStage?.setMouthVisualState?.(level);
+}
+
 let stageAudioContext = null;
 let stageAnalyser = null;
 let stageAudioSource = null;
@@ -1214,7 +1223,7 @@ function runStageMouthMeter() {
   cancelAnimationFrame(stageAnimationFrame);
   const audio = $('#ss-ai-audio');
   if (!audio || audio.paused || audio.ended) {
-    window.SwarSadhikaStage?.setMouthLevel(0);
+    setStageLipSyncLevel(0);
     return;
   }
   let level = 0;
@@ -1228,7 +1237,7 @@ function runStageMouthMeter() {
     const rms = Math.sqrt(sum / stageWaveform.length);
     level = Math.max(0, Math.min(1, (rms - 0.012) * 5.8));
   }
-  window.SwarSadhikaStage?.setMouthLevel(level);
+  setStageLipSyncLevel(level);
   stageAnimationFrame = requestAnimationFrame(runStageMouthMeter);
 }
 
@@ -1281,7 +1290,7 @@ function bindStageAudioSync() {
   audio?.addEventListener('seeked', syncStageTextToAudio);
   audio?.addEventListener('pause', () => {
     cancelAnimationFrame(stageAnimationFrame);
-    window.SwarSadhikaStage?.setMouthLevel(0);
+    setStageLipSyncLevel(0);
     if (audio.currentTime < (audio.duration || Infinity) && audio.currentTime > 0) {
       // Keep current displayed line available when paused.
       syncStageTextToAudio();
