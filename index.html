@@ -16,7 +16,7 @@
     .tabs{display:flex;gap:7px;overflow-x:auto;padding-top:14px;scrollbar-width:thin;position:sticky;top:0;z-index:20;padding-bottom:8px;background:#102b55}.tab-btn{flex:0 0 auto;padding:8px 12px;color:#fff;border:1px solid #ffffff55;border-radius:999px;background:#ffffff12;font-size:.82rem}.tab-btn[aria-selected="true"]{background:#fff;color:var(--blue);font-weight:800}
     main{padding:16px 12px 32px}.notice{padding:11px 13px;margin-bottom:14px;background:#fff;border:1px solid #cad8ed;border-left:5px solid var(--blue2);border-radius:11px;font-size:.88rem}.workspace{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}.panel{min-width:0;overflow:hidden;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.panel-head{padding:14px 15px;border-bottom:1px solid #e8edf5}.panel-head h2{margin:0;font-size:1.05rem}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:.84rem}.panel-body{padding:14px}.field{display:grid;gap:6px;margin-bottom:13px}label,.field-label{font-size:.88rem;font-weight:750}.hint{font-size:.8rem;color:var(--muted)}textarea,input[type="text"],input[type="number"],select{width:100%;min-width:0;padding:10px;border:1px solid #c8d3e3;border-radius:9px;background:#fff;color:var(--ink)}textarea{min-height:145px;resize:vertical;line-height:1.8}input[type="file"]{width:100%;max-width:100%;padding:9px;border:1px dashed #b8c7dc;border-radius:9px;background:#f9fbff}input[type="range"]{width:100%;accent-color:var(--blue2)}input[type="checkbox"]{width:18px;height:18px}.check-row{display:flex;align-items:center;gap:8px;font-size:.88rem}.btn-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:0;min-height:42px;padding:9px 12px;border:1px solid transparent;border-radius:9px;text-align:center;text-decoration:none;font-weight:750;line-height:1.3}.primary{color:#fff;background:var(--blue);border-color:var(--blue)}.secondary{color:#173f7b;background:#edf3fc;border-color:#bfd0e8}.quiet{color:#45546c;background:#fff;border-color:#ccd6e5}.danger{color:#9c2727;background:#fff1f1;border-color:#e9bcbc}.btn.full{width:100%}.status{padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#f3f6fb;color:#40506a;font-size:.85rem;overflow-wrap:anywhere}.status.good{color:var(--green);background:#e8f7ef}.status.warn{color:var(--amber);background:#fff4d8}.status.bad{color:var(--red);background:#fff0f0}
     /* 9:16 पूर्वावलोकन: दृश्य wrapping कभी भी वाचन-queue को नहीं बदलता। */
-    .stage-wrap{padding:12px;background:#eaf0f8}.stage{position:relative;isolation:isolate;width:min(100%,390px);aspect-ratio:9/16;margin:0 auto;overflow:hidden;border-radius:12px;background:linear-gradient(145deg,#dce9ff,#687e9c);box-shadow:0 12px 28px #152a4b30}.stage-media{display:none;position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;background:#111827}.stage-media.active{display:block}.stage-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;text-align:center;color:#243b5e;background:radial-gradient(ellipse at 50% 32%,#f6e7d7 0,#d9c7bf 27%,transparent 60%)}.avatar-portrait{width:94%;height:88%;max-height:100%;object-fit:contain;filter:drop-shadow(0 9px 13px #13233a35)}.avatar-caption{position:absolute;bottom:12%;left:6%;right:6%;color:#fff;font-size:10px;opacity:.8;text-shadow:0 1px 5px #000}.stage.avatar-speaking #avatar-mouth{filter:drop-shadow(0 0 2px #f3a2a2)}#avatar-mouth{transition:ry .06s linear;transform-box:fill-box;transform-origin:center}.ai-sync-button{margin-top:10px;width:100%}.stage-empty strong{font-size:1.1rem}.stage-empty p{font-size:.84rem}.stage-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#0005,transparent 25%,transparent 66%,#0008)}.overlay-text{position:absolute;z-index:2;left:6%;right:6%;top:50%;transform:translateY(-50%);max-height:72%;overflow:hidden;text-align:center;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font-size:28px;font-weight:850;line-height:1.55;text-shadow:0 2px 3px #000,0 0 9px #000;-webkit-text-stroke:.25px #000;pointer-events:none}.overlay-text .c1{color:#fff36b}.overlay-text .c2{color:#ff7887}.overlay-text .c3{color:#7dffb0}.overlay-text .c4{color:#7ed8ff}.overlay-text .c5{color:#ffa5ff}.overlay-text .c6{color:#fff}.stage-label{position:absolute;z-index:3;top:8px;left:8px;max-width:calc(100% - 16px);padding:5px 8px;border-radius:6px;color:#fff;background:#0d1c33bd;font-size:.7rem}.screen-actions{position:absolute;z-index:4;left:8px;right:8px;bottom:8px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.screen-actions button{min-height:34px;padding:5px 9px;border:1px solid #ffffff77;border-radius:8px;color:#fff;background:#102b55dc;font-size:.78rem}.screen-actions button:disabled{opacity:.55}.stage-controls{display:grid;gap:10px;margin-top:12px}.progress-track{height:9px;overflow:hidden;border-radius:99px;background:#e7edf5}.progress-bar{width:0;height:100%;background:#286ac3}.progress-meta{display:flex;justify-content:space-between;gap:10px;margin:7px 0;font-size:.79rem}.list{display:grid;gap:8px;margin:12px 0 0;padding:0;list-style:none}.list-item{padding:10px;border:1px solid #dae3ef;border-radius:9px}.item-title{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9rem}.item-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.small-btn{padding:5px 8px;min-height:32px;border:1px solid #cbd7e8;border-radius:7px;background:#f4f7fc;color:#214779}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}.media-player{width:100%;margin-top:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metric{padding:10px;border:1px solid var(--line);border-radius:9px;background:#f8faff;font-size:.82rem}.metric strong{display:block}.footer{padding:0 12px 24px;color:#697588;font-size:.8rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .stage-wrap{padding:12px;background:#eaf0f8}.stage{position:relative;isolation:isolate;width:min(100%,390px);aspect-ratio:9/16;margin:0 auto;overflow:hidden;border-radius:12px;background:linear-gradient(145deg,#dce9ff,#687e9c);box-shadow:0 12px 28px #152a4b30}.stage-media{display:none;position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;background:#111827}.stage-media.active{display:block}#avatar-default{object-fit:cover;object-position:center center;filter:none}#avatar-mouth-layer{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible;opacity:0;transition:opacity .045s linear}#avatar-mouth-layer[hidden]{display:none!important}.avatar-caption{position:absolute;z-index:3;bottom:8%;left:6%;right:6%;color:#fff;font-size:10px;text-align:center;opacity:.78;text-shadow:0 1px 5px #000;pointer-events:none}.stage.avatar-speaking #avatar-mouth{filter:drop-shadow(0 0 1.5px #f3a2a2)}#avatar-mouth{transition:rx .045s linear,ry .045s linear;transform-box:fill-box;transform-origin:center}.ai-sync-button{margin-top:10px;width:100%}.stage-empty strong{font-size:1.1rem}.stage-empty p{font-size:.84rem}.stage-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#0005,transparent 25%,transparent 66%,#0008)}.overlay-text{position:absolute;z-index:2;left:6%;right:6%;top:50%;transform:translateY(-50%);max-height:72%;overflow:hidden;text-align:center;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font-size:28px;font-weight:850;line-height:1.55;text-shadow:0 2px 3px #000,0 0 9px #000;-webkit-text-stroke:.25px #000;pointer-events:none}.overlay-text .c1{color:#fff36b}.overlay-text .c2{color:#ff7887}.overlay-text .c3{color:#7dffb0}.overlay-text .c4{color:#7ed8ff}.overlay-text .c5{color:#ffa5ff}.overlay-text .c6{color:#fff}.stage-label{position:absolute;z-index:3;top:8px;left:8px;max-width:calc(100% - 16px);padding:5px 8px;border-radius:6px;color:#fff;background:#0d1c33bd;font-size:.7rem}.screen-actions{position:absolute;z-index:4;left:8px;right:8px;bottom:8px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.screen-actions button{min-height:34px;padding:5px 9px;border:1px solid #ffffff77;border-radius:8px;color:#fff;background:#102b55dc;font-size:.78rem}.screen-actions button:disabled{opacity:.55}.stage-controls{display:grid;gap:10px;margin-top:12px}.progress-track{height:9px;overflow:hidden;border-radius:99px;background:#e7edf5}.progress-bar{width:0;height:100%;background:#286ac3}.progress-meta{display:flex;justify-content:space-between;gap:10px;margin:7px 0;font-size:.79rem}.list{display:grid;gap:8px;margin:12px 0 0;padding:0;list-style:none}.list-item{padding:10px;border:1px solid #dae3ef;border-radius:9px}.item-title{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9rem}.item-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.small-btn{padding:5px 8px;min-height:32px;border:1px solid #cbd7e8;border-radius:7px;background:#f4f7fc;color:#214779}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}.media-player{width:100%;margin-top:10px}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metric{padding:10px;border:1px solid var(--line);border-radius:9px;background:#f8faff;font-size:.82rem}.metric strong{display:block}.footer{padding:0 12px 24px;color:#697588;font-size:.8rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     #stage:fullscreen{width:min(100vw,56.25dvh);height:min(100dvh,177.78vw);max-width:none;aspect-ratio:9/16;margin:auto;border-radius:0;box-shadow:none;background:#000}
     #stage:fullscreen .overlay-text{max-height:72%;font-size:clamp(22px,5.3vw,48px)}
     /* Fullscreen playback: the label and transport buttons must not cover the mantra. */
@@ -66,40 +66,26 @@
   </nav>
 </header>
 <main>
-  <div class="notice"><strong>महत्त्वपूर्ण:</strong> सभी नियंत्रण एक ही पेज पर हैं; ऊपर के टैब संबंधित अनुभाग तक ले जाते हैं। पाठ कतार में स्क्रीन के आकार के अनुसार शब्दों को अलग वाचन-खंडों में नहीं बाँटा जाता। हर खाली न होने वाली मूल पंक्ति एक queue item होती है। Browser TTS पर उपलब्ध आवाज़ डिवाइस और ब्राउज़र पर निर्भर करती है; महिला-स्वर या वैदिक उच्चारण की गारंटी नहीं है। वास्तविक AI गायन तभी सफल माना जाएगा जब स्थानीय मॉडल inference और ऑडियो दोनों जाँचे गए हों।</div>
+  <div class="notice" data-studio-note><strong>स्वर-साधिका:</strong> मुख्य स्क्रीन पर 9:16 स्टूडियो रहेगा। ऊपर के बटन अलग-अलग सुविधा-पृष्ठ खोलते हैं; एक समय में केवल चुना हुआ पृष्ठ दिखेगा। Browser TTS और वास्तविक AI गायन अलग सुविधाएँ हैं।</div>
   <div class="workspace">
     <section class="panel" id="panel-studio" data-panel="studio">
       <div class="panel-head"><h2>9:16 वीडियो स्टूडियो</h2><p>फोटो या वीडियो के ऊपर वर्तमान संस्कृत पाठ। प्ले बटन दबाने पर दृश्य 9:16 फुलस्क्रीन में खुलेगा।</p></div>
       <div class="stage-wrap">
         <div class="stage" id="stage">
-          <div class="stage-empty" id="stage-empty" aria-label="स्वर-साधिका आभासी स्त्री-अवतार">
-            <svg class="avatar-portrait" viewBox="0 0 360 600" role="img" aria-label="सरल चित्रात्मक स्त्री-अवतार; होंठों की गति ऑडियो स्तर के अनुसार अनुमानित होगी">
-              <defs>
-                <linearGradient id="avatarHair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#211d28"/><stop offset=".5" stop-color="#090b14"/><stop offset="1" stop-color="#3b2932"/></linearGradient>
-                <linearGradient id="avatarSkin" x1="0" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#f5d4c0"/><stop offset="1" stop-color="#c88772"/></linearGradient>
-                <linearGradient id="avatarCloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5d58c"/><stop offset="1" stop-color="#b27732"/></linearGradient>
-              </defs>
-              <ellipse cx="180" cy="555" rx="139" ry="26" fill="#1a2a43" opacity=".15"/>
-              <path d="M61 254 Q35 77 180 46 Q325 74 299 267 L314 430 Q284 478 247 414 L111 421 Q72 478 43 430Z" fill="url(#avatarHair)"/>
-              <path d="M92 420 Q87 378 91 335 L269 335 Q275 386 268 423 Q328 445 346 550 L14 550 Q33 448 92 420Z" fill="url(#avatarCloth)"/>
-              <path d="M119 376 Q180 408 241 376 L253 429 Q180 482 107 429Z" fill="url(#avatarSkin)"/>
-              <path d="M89 160 Q104 80 180 79 Q254 80 272 160 L267 270 Q258 345 180 369 Q102 344 93 270Z" fill="url(#avatarSkin)"/>
-              <path d="M88 178 Q68 74 148 54 Q230 32 277 103 Q290 127 274 201 L260 166 Q236 148 228 118 Q176 154 107 147 L101 216Z" fill="url(#avatarHair)"/>
-              <path d="M103 216 Q81 199 83 240 Q87 266 103 268Z" fill="url(#avatarSkin)"/>
-              <path d="M257 216 Q279 199 277 240 Q273 266 257 268Z" fill="url(#avatarSkin)"/>
-              <ellipse cx="137" cy="219" rx="18" ry="10" fill="#fff8ef"/><ellipse cx="223" cy="219" rx="18" ry="10" fill="#fff8ef"/>
-              <ellipse cx="139" cy="220" rx="6" ry="8" fill="#352329"/><ellipse cx="221" cy="220" rx="6" ry="8" fill="#352329"/>
-              <path d="M117 201 Q137 188 155 200 M205 200 Q224 188 243 202" fill="none" stroke="#432b2b" stroke-width="6" stroke-linecap="round"/>
-              <path d="M181 226 Q169 256 183 260" fill="none" stroke="#b87565" stroke-width="4" stroke-linecap="round"/>
-              <path d="M154 286 Q180 301 206 286 Q181 319 154 286Z" fill="#9a3546" opacity=".35"/>
-              <ellipse id="avatar-mouth" cx="180" cy="293" rx="15" ry="3" fill="#8b2f40" stroke="#672434" stroke-width="2"/>
-              <path d="M155 282 Q180 291 205 282" fill="none" stroke="#a85761" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="101" cy="272" r="8" fill="#e3b45d"/><circle cx="259" cy="272" r="8" fill="#e3b45d"/>
-              <path d="M124 400 Q180 431 236 400 L252 453 Q180 494 108 453Z" fill="#7a2b47" opacity=".86"/>
-              <path d="M180 425 L180 518" stroke="#edc879" stroke-width="4" opacity=".8"/>
-            </svg>
-            <div class="avatar-caption">स्त्री-अवतार · होंठों की गति ऑडियो के स्तर के अनुसार अनुमानित</div>
-          </div>
+          <img id="avatar-default" class="stage-media active" src="./swar-sadhika-user-photo.jpg" alt="उपयोगकर्ता द्वारा दी गई मूल स्वर-साधिका फोटो" decoding="async" fetchpriority="high">
+          <svg id="avatar-mouth-layer" viewBox="0 0 1000 1777.7778" preserveAspectRatio="none" aria-hidden="true" hidden>
+            <defs>
+              <linearGradient id="ss-lips-skin" x1="0" y1="0" x2="0.15" y2="1"><stop offset="0" stop-color="#e5a18b"/><stop offset=".55" stop-color="#df967f"/><stop offset="1" stop-color="#e5a18e"/></linearGradient>
+              <filter id="ss-lips-soften" x="-20%" y="-35%" width="140%" height="170%"><feGaussianBlur stdDeviation="2.2"/></filter>
+            </defs>
+            <!-- Only the small lip area is redrawn during playback; the supplied photo remains unchanged elsewhere. -->
+            <ellipse id="avatar-mouth-patch" cx="441" cy="214" rx="31" ry="17" fill="url(#ss-lips-skin)" filter="url(#ss-lips-soften)"/>
+            <ellipse id="avatar-mouth" cx="441" cy="214" rx="14" ry="1.8" fill="#4e1926" stroke="#813344" stroke-width="2.2"/>
+            <ellipse id="avatar-teeth" cx="441" cy="211.5" rx="9" ry="1" fill="#fff2df" opacity="0"/>
+            <path id="avatar-upper-lip" d="M414 213 Q427 209 441 213 Q455 209 468 213" fill="none" stroke="#9a4c5a" stroke-width="2.6" stroke-linecap="round"/>
+            <path id="avatar-lower-lip" d="M420 217 Q441 224 462 217" fill="none" stroke="#b96778" stroke-width="2.7" stroke-linecap="round" opacity=".8"/>
+          </svg>
+          <div id="avatar-caption" class="avatar-caption">मूल फोटो · ऑडियो के स्तर पर आधारित मुख-गति</div>
           <img id="photo-preview" class="stage-media" alt="पृष्ठभूमि फोटो">
           <video id="video-preview" class="stage-media" playsinline preload="metadata"></video>
           <div class="stage-shade" aria-hidden="true"></div>
@@ -132,7 +118,7 @@
     </section>
 
 
-    <section class="panel" id="panel-library" data-panel="library">
+    <section class="panel" id="panel-library" data-panel="library" hidden>
       <div class="panel-head"><h2>संस्कृत-संग्रह — अपने ग्रंथ सुरक्षित रखें</h2><p>शीर्षक से खोजें, पाठ सहेजें, उसका विश्लेषण करें और एक क्लिक से AI गायन प्रयास के लिए भेजें। संग्रह इस ब्राउज़र के IndexedDB में रहता है; बैकअप फ़ाइल अलग से डाउनलोड करें।</p></div>
       <div class="panel-body">
         <div class="enhancement-grid">
@@ -155,7 +141,7 @@
       </div>
     </section>
 
-    <section class="panel" id="panel-queue" data-panel="queue">
+    <section class="panel" id="panel-queue" data-panel="queue" hidden>
       <div class="panel-head"><h2>मंत्र एवं पाठ कतार</h2><p>हर मूल non-empty पंक्ति अक्षुण्ण रखी जाती है। दृश्य में लाइन wrap हो सकती है, लेकिन इससे वाचन कतार नहीं बदलती।</p></div>
       <div class="panel-body">
         <div class="field"><label for="text-input">संस्कृत / वैदिक / हिंदी पाठ</label><textarea id="text-input" lang="sa-Deva" spellcheck="false" placeholder="यहाँ पूरा मंत्र या श्लोक लिखें…&#10;हर मूल पंक्ति को नई लाइन में रखें।"></textarea><div class="hint">मूल वर्ण, मात्रा, संयुक्ताक्षर, दण्ड और उपलब्ध वैदिक चिह्न हटाए नहीं जाएँगे। बहुत लंबी पंक्ति भी शब्द के बीच से छोटे utterance में नहीं टूटेगी। Browser TTS का अपना उच्चारण व्यवहार अलग हो सकता है।</div></div>
@@ -166,7 +152,7 @@
       </div>
     </section>
 
-    <section class="panel" id="panel-voice" data-panel="voice">
+    <section class="panel" id="panel-voice" data-panel="voice" hidden>
       <div class="panel-head"><h2>Browser Voice — सामान्य वाचन</h2><p>Web Speech API का उपयोग। यह स्वयं AI गायन इंजन नहीं है।</p></div>
       <div class="panel-body">
         <div id="voice-status" class="status" aria-live="polite">Voice सूची जाँची जा रही है।</div>
@@ -182,7 +168,7 @@
       </div>
     </section>
 
-    <section class="panel" id="panel-photo" data-panel="photo">
+    <section class="panel" id="panel-photo" data-panel="photo" hidden>
       <div class="panel-head"><h2>फोटो ओवरले</h2><p>फोटो केवल इस ब्राउज़र सत्र में स्थानीय रूप से उपयोग होती है।</p></div>
       <div class="panel-body">
         <div class="field"><label for="photo-input">फोटो चुनें</label><input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp"></div>
@@ -191,7 +177,7 @@
       </div>
     </section>
 
-    <section class="panel" id="panel-videos" data-panel="videos">
+    <section class="panel" id="panel-videos" data-panel="videos" hidden>
       <div class="panel-head"><h2>वीडियो क्लिप</h2><p>क्लिप चुनने के बाद Studio में लौटें और “टेक्स्ट + वीडियो Fullscreen चलाएँ” दबाएँ।</p></div>
       <div class="panel-body">
         <div class="field"><label for="video-input">वीडियो फाइलें चुनें</label><input id="video-input" type="file" accept="video/*" multiple></div>
@@ -202,7 +188,7 @@
       </div>
     </section>
 
-    <section class="panel" id="panel-audio" data-panel="audio">
+    <section class="panel" id="panel-audio" data-panel="audio" hidden>
       <div class="panel-head"><h2>Background Audio</h2><p>ऑडियो प्लेयर अलग है; Canvas वीडियो रिकॉर्डिंग में इसका ऑडियो अपने-आप शामिल नहीं होता।</p></div>
       <div class="panel-body">
         <div class="field"><label for="audio-input">ऑडियो फाइलें चुनें</label><input id="audio-input" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.webm" multiple></div>
@@ -214,7 +200,7 @@
       </div>
     </section>
 
-    <section class="panel" id="panel-export" data-panel="export">
+    <section class="panel" id="panel-export" data-panel="export" hidden>
       <div class="panel-head"><h2>रिकॉर्डिंग एवं Export</h2><p>9:16 Canvas की रिकॉर्डिंग। TTS या अलग background audio शामिल होने का दावा नहीं किया जाता।</p></div>
       <div class="panel-body">
         <div class="status warn">यह रिकॉर्डिंग Canvas पर दिख रहे दृश्य और टेक्स्ट की है। Browser TTS का ऑडियो इसमें शामिल नहीं माना जाएगा। संयुक्त वीडियो+आवाज़ export अलग से सत्यापित करना होगा।</div>
@@ -226,7 +212,7 @@
       </div>
     </section>
 
-    <section class="panel" id="panel-ai" data-panel="ai">
+    <section class="panel" id="panel-ai" data-panel="ai" hidden>
       <div class="panel-head"><h2>स्थानीय AI संस्कृत गायन परीक्षण</h2><p>अलग पैनल में वास्तविक इंजन और ऑडियो का परीक्षण करें।</p></div>
       <div class="panel-body">
         <div id="ai-status" class="status warn">AI गायन अभी प्रमाणित नहीं है। पृष्ठ लोड, WebGPU उपलब्धता या Browser TTS चलना सफल स्थानीय मॉडल inference का प्रमाण नहीं है।</div>
@@ -236,7 +222,7 @@
       </div>
     </section>
 
-    <section class="panel" id="panel-models" data-panel="models">
+    <section class="panel" id="panel-models" data-panel="models" hidden>
       <div class="panel-head"><h2>आधिकारिक मॉडल खोज, जाँच एवं डाउनलोड</h2><p>मॉडल के स्रोत की खोज करें। समर्थित Vāgdhenu मॉडल डाउनलोड करने पर उसकी पाँच आवश्यक फ़ाइलें आधिकारिक repository से जाँची जाती हैं और browser Cache Storage में रखी जाती हैं।</p></div>
       <div class="panel-body">
         <div class="status warn"><strong>स्त्री-स्वर की स्पष्ट सीमा:</strong> Vāgdhenu संस्कृत chant मॉडल है, लेकिन उसके आधिकारिक मॉडल-विवरण से लड़की/महिला-स्वर की पुष्टि नहीं होती। किसी खोज-परिणाम को स्त्री-गायन या इस ऐप से संगत मॉडल तभी मानें जब उसकी voice, license, architecture और वास्तविक आउटपुट अलग से जाँचे जाएँ।</div>
@@ -258,6 +244,7 @@
   </div>
 </main>
 <footer class="footer">Swar-Sadhika — browser-first संस्कृत वाचन एवं 9:16 स्टूडियो। कोई cloud AI API या API key स्वतः उपयोग नहीं होती। वास्तविक AI inference, महिला स्वर, उच्चारण गुणवत्ता और combined audio export को प्रमाण-आधारित परीक्षण से ही सफल माना जाएगा।</footer>
+<script src="./lipsync-engine.js"></script>
 <script>
 (() => {
   'use strict';
@@ -282,15 +269,28 @@
     if (type) element.classList.add(type);
   }
   function revoke(url) { if (url) URL.revokeObjectURL(url); }
-  function openPanel(name) {
-    const target = document.querySelector(`[data-panel="${name}"]`);
-    // One-page mode: all panels stay visible; navigation only scrolls to a section.
-    document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = false; });
-    document.querySelectorAll('[data-open]').forEach(button => { button.setAttribute('aria-selected', String(button.dataset.open === name)); });
+  function openPanel(name, options = {}) {
+    const panels = [...document.querySelectorAll('[data-panel]')];
+    if (!panels.some(panel => panel.dataset.panel === name)) name = 'studio';
+    panels.forEach(panel => { panel.hidden = panel.dataset.panel !== name; });
+    document.querySelectorAll('[data-open]').forEach(button => {
+      const active = button.dataset.open === name;
+      button.setAttribute('aria-selected', String(active));
+      button.tabIndex = active ? 0 : -1;
+    });
+    const note = document.querySelector('[data-studio-note]');
+    if (note) note.hidden = name !== 'studio';
     if (name === 'studio') refreshStage();
-    if (target) target.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
+    const mode = options.historyMode || 'replace';
+    if (mode !== 'none' && window.history?.replaceState) {
+      const url = `${location.pathname}${location.search}#${name}`;
+      if (mode === 'push') history.pushState({panel:name}, '', url);
+      else history.replaceState({panel:name}, '', url);
+    }
+    if (options.scroll !== false) window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
   }
-  document.querySelectorAll('[data-open]').forEach(button => button.addEventListener('click', () => openPanel(button.dataset.open)));
+  document.querySelectorAll('[data-open]').forEach(button => button.addEventListener('click', () => openPanel(button.dataset.open, {historyMode:'push'})));
+  window.addEventListener('popstate', () => openPanel(location.hash.slice(1) || 'studio', {historyMode:'none'}));
 
   /* Queue construction never depends on screen width or grapheme count. */
   function splitTextIntoQueueLines(text) {
@@ -331,13 +331,18 @@
     $('text-size-value').textContent = `${$('text-size').value} px`;
     photo.classList.toggle('active',Boolean(photoUrl) && photo.dataset.active === 'true');
     video.classList.toggle('active',currentVideo >= 0 && video.dataset.active === 'true');
-    $('stage-empty').hidden = photo.classList.contains('active') || video.classList.contains('active');
-    $('stage-label').textContent = video.classList.contains('active') ? 'वीडियो + वर्तमान पाठ' : photo.classList.contains('active') ? 'फोटो + वर्तमान पाठ' : 'स्त्री-अवतार + वर्तमान पाठ';
+    const userPhotoActive = photo.classList.contains('active');
+    const userVideoActive = video.classList.contains('active');
+    $('avatar-default').classList.toggle('active', !userPhotoActive && !userVideoActive);
+    $('avatar-mouth-layer').hidden = userPhotoActive || userVideoActive;
+    $('avatar-caption').hidden = userPhotoActive || userVideoActive;
+    $('stage-label').textContent = userVideoActive ? 'वीडियो + वर्तमान पाठ' : userPhotoActive ? 'फोटो + वर्तमान पाठ' : 'आपकी फोटो + वर्तमान पाठ';
   }
   let aiStageActive = false;
   let aiStageText = '';
   let aiStageLines = [];
   let aiVideoWasMuted = null;
+  openPanel(location.hash.slice(1) || 'studio', {historyMode:'replace',scroll:false});
   function syncDisplaySegments(text) {
     const sourceLines = String(text || '').replace(/\r\n?/g,'\n').split('\n').filter(line => line.trim());
     if (sourceLines.length !== 1) return sourceLines;
@@ -354,10 +359,9 @@
     return aiStageLines[aiStageLines.length-1];
   }
   function setAvatarMouthLevel(level) {
-    const mouth = $('avatar-mouth');
-    if (!mouth) return;
-    const amount = Math.max(0, Math.min(1, Number(level)||0));
-    mouth.setAttribute('ry', String((2.5 + amount * 10).toFixed(1)));
+    const amount = Math.max(0, Math.min(1, Number(level) || 0));
+    stage.classList.toggle('avatar-speaking', amount > 0.055);
+    window.SwarSadhikaLipSync?.setLevel(amount);
   }
   window.SwarSadhikaStage = {
     beginAiPlayback(text) {
@@ -591,8 +595,10 @@
 
   function cover(source,sw,sh,dw,dh){const sourceRatio=sw/sh,destRatio=dw/dh;let sx=0,sy=0,cw=sw,ch=sh;if(sourceRatio>destRatio){cw=sh*destRatio;sx=(sw-cw)/2;}else{ch=sw/destRatio;sy=(sh-ch)/2;}ctx.drawImage(source,sx,sy,cw,ch,0,0,dw,dh);}
   function drawFrame(){const w=canvas.width,h=canvas.height;const gradient=ctx.createLinearGradient(0,0,w,h);gradient.addColorStop(0,'#e5efff');gradient.addColorStop(1,'#526985');ctx.fillStyle=gradient;ctx.fillRect(0,0,w,h);
-    if(video.dataset.active==='true'&&currentVideo>=0&&video.readyState>=2&&video.videoWidth&&video.videoHeight)cover(video,video.videoWidth,video.videoHeight,w,h);else if(photo.dataset.active==='true'&&photo.complete&&photo.naturalWidth)cover(photo,photo.naturalWidth,photo.naturalHeight,w,h);
+    const avatar=$('avatar-default');
+    if(video.dataset.active==='true'&&currentVideo>=0&&video.readyState>=2&&video.videoWidth&&video.videoHeight)cover(video,video.videoWidth,video.videoHeight,w,h);else if(photo.dataset.active==='true'&&photo.complete&&photo.naturalWidth)cover(photo,photo.naturalWidth,photo.naturalHeight,w,h);else if(avatar?.complete&&avatar.naturalWidth)cover(avatar,avatar.naturalWidth,avatar.naturalHeight,w,h);
     const shade=ctx.createLinearGradient(0,0,0,h);shade.addColorStop(0,'#0004');shade.addColorStop(.45,'#0000');shade.addColorStop(1,'#0007');ctx.fillStyle=shade;ctx.fillRect(0,0,w,h);
+    if(photo.dataset.active!=='true'&&video.dataset.active!=='true')window.SwarSadhikaLipSync?.drawToCanvas(ctx,w,h);
     const text=shownText();if(!text)return;let fontSize=Math.max(32,Math.min(88,Number($('text-size').value)*2));ctx.font=`850 ${fontSize}px "Noto Sans Devanagari","Nirmala UI",Mangal,sans-serif`;const maxWidth=w*.82;const lines=[];
     for(const lineText of text.split('\n')){let visualLine='';for(const unit of graphemes(lineText)){const test=visualLine+unit;if(visualLine&&ctx.measureText(test).width>maxWidth){lines.push(visualLine);visualLine=unit;}else visualLine=test;}if(visualLine)lines.push(visualLine);}
     if(!lines.length)return;const lineHeight=fontSize*1.45,blockHeight=lines.length*lineHeight;let top=$('text-position').value==='top'?h*.12:$('text-position').value==='bottom'?h*.82-blockHeight:(h-blockHeight)/2;top=Math.max(20,Math.min(h-blockHeight-20,top));let colorIndex=0;ctx.textAlign='center';ctx.textBaseline='alphabetic';
@@ -616,5 +622,6 @@
 </script>
   <script type="module" src="./app.js"></script>
   <script type="module" src="./studio-enhancements.js"></script>
+  <script src="./lipsync-engine.js" defer></script>
 </body>
 </html>
