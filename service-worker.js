@@ -21,7 +21,7 @@
 
 'use strict';
 
-const SHELL_CACHE = 'swar-sadhika-female-chant-shell-v7';
+const SHELL_CACHE = 'swar-sadhika-female-chant-shell-v8';
 const REMOTE_CACHE = 'swar-sadhika-remote-runtime-v1';
 const MODEL_CACHE = 'swar-sadhika-vagdhenu-models-v1';
 const MODEL_META_CACHE = 'swar-sadhika-vagdhenu-models-meta-v2';
@@ -39,6 +39,8 @@ const REQUIRED_MODEL_FILES = new Set([
 const SHELL_FILES = [
   './',
   './index.html',
+  './lipsync-engine.js',
+  './swar-sadhika-user-photo.jpg',
   './manifest.webmanifest',
   './icon.svg',
   './app.js',
