@@ -20,6 +20,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out this new repository
         uses: actions/checkout@v4
@@ -31,20 +32,33 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
           test -s index.html
           test -s app.js
           test -s index.js
           test -s studio-enhancements.js
+          test -s swar-sadhika-avatar-photo.jpg
+          test -s swar-sadhika-avatar-lipsync-part2.js
+          test -s swar-sadhika-module-loader-part2.js
+          test -s swar-sadhika-module-registry-part2.json
           test -s model-cache.js
           test -s manifest.webmanifest
+
           node --version
+
           node --check app.js
           node --check index.js
           node --check studio-enhancements.js
           node --check model-cache.js
           node --check service-worker.js
+          node --check lipsync-engine.js
+          node --check swar-sadhika-avatar-lipsync-part2.js
+          node --check swar-sadhika-module-loader-part2.js
+          node --check swar-sadhika-app-bootstrap-part2.js
           node --check vagdhenu-text.js
+
           npm test
+          npm run test:avatar-lipsync-part2
           node scripts/test-rudrashtakam-input.mjs
 
       - name: Upload website artifact
