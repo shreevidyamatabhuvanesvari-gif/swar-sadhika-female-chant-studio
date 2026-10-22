@@ -15,11 +15,11 @@
   const patch = byId("avatar-mouth-patch");
   if (svg) { svg.hidden = false; if (typeof svg.removeAttribute === "function") svg.removeAttribute("hidden"); svg.style.opacity = "0"; }
   const state = { target: 0, smoothed: 0 };
-  // Coordinates were aligned for swar-sadhika-user-photo.jpg in the 9:16 object-fit:cover stage.
-  const CENTER_X = 444;
-  const CENTER_Y = 214;
-  const SKIN_PATCH_RX = 24;
-  const SKIN_PATCH_RY = 12;
+  // Coordinates are aligned for swar-sadhika-avatar-photo.jpg in the 9:16 object-fit:cover stage.
+  const CENTER_X = 680;
+  const CENTER_Y = 564;
+  const SKIN_PATCH_RX = 38;
+  const SKIN_PATCH_RY = 23;
 
   function setLevel(value) {
     state.target = clamp(value, 0, 1);
@@ -36,7 +36,7 @@
     }
     // Reveal overlay only during sound; when silent the exact original mouth stays visible.
     svg.style.opacity = String(clamp((amount - 0.025) / 0.095, 0, 1));
-    const rx = 11.5 + amount * 10.5;
+    const rx = 16 + amount * 18;
     const ry = 1.15 + amount * 8.8;
     mouth.setAttribute("cx", String(CENTER_X));
     mouth.setAttribute("cy", (CENTER_Y + amount * 1.2).toFixed(2));
@@ -75,7 +75,7 @@
     const sy = height / 1777.7778;
     const x = CENTER_X * sx;
     const y = CENTER_Y * sy;
-    const rx = (11.5 + amount * 10.5) * sx;
+    const rx = (16 + amount * 18) * sx;
     const ry = (1.15 + amount * 8.8) * sy;
     ctx.save();
     ctx.globalAlpha = clamp((amount - 0.025) / 0.095, 0, 0.96);
