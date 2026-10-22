@@ -21,7 +21,7 @@
 
 'use strict';
 
-const SHELL_CACHE = 'swar-sadhika-female-chant-shell-v10';
+const SHELL_CACHE = 'swar-sadhika-female-chant-shell-v11';
 const REMOTE_CACHE = 'swar-sadhika-remote-runtime-v1';
 const MODEL_CACHE = 'swar-sadhika-vagdhenu-models-v1';
 const MODEL_META_CACHE = 'swar-sadhika-vagdhenu-models-meta-v2';
@@ -40,7 +40,7 @@ const SHELL_FILES = [
   './',
   './index.html',
   './lipsync-engine.js',
-  './swar-sadhika-user-photo.jpg',
+  './swar-sadhika-avatar-photo.jpg',
   './manifest.webmanifest',
   './icon.svg',
   './app.js',
@@ -50,7 +50,14 @@ const SHELL_FILES = [
   './vendor/vagdhenu-upstream/vagdhenu-onnx.js',
   './vagdhenu-text.js',
   './pronunciation-learning.js',
-  './model-cache.js'
+  './model-cache.js',
+  './swar-sadhika-app-bootstrap-part2.js',
+  './swar-sadhika-module-loader-part2.js',
+  './swar-sadhika-module-registry-part2.json',
+  './swar-sadhika-avatar-lipsync-part2.js',
+  './swar-sadhika-brain-integration-part2.js',
+  './swar-sadhika-brain.js',
+  './sanskrit-knowledge-index.json'
 ];
 
 /* -------------------------------------------------------------------------- */
