@@ -8,6 +8,13 @@
       "enabled": true,
       "required": false,
       "dependsOn": []
+    },
+    {
+      "id": "avatar-lipsync",
+      "path": "swar-sadhika-avatar-lipsync-part2.js",
+      "enabled": true,
+      "required": false,
+      "dependsOn": []
     }
   ]
 }
