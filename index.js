@@ -17,7 +17,6 @@
  * Model assets may still require an intentional first-run download. If a
  * required dependency is absent, the operation fails explicitly.
  */
-
 const MODULE_DIRECTORY_URL = new URL('./', import.meta.url);
 const ENGINE_MODULE_FILE = 'vagdhenu-onnx.js';
 const TEXT_MODULE_FILE = 'vagdhenu-text.js';
@@ -27,7 +26,6 @@ const JAVASCRIPT_MIME_MARKERS = Object.freeze([
   'javascript',
   'ecmascript'
 ]);
-
 const DEFAULT_OPTIONS = Object.freeze({
   backend: 'wasm',
   meter: 'auto',
@@ -40,10 +38,8 @@ const DEFAULT_OPTIONS = Object.freeze({
   baseUrl: null,
   onProgress: null
 });
-
 let cachedRuntimeModules = null;
 let cachedRuntimePromise = null;
-
 /**
  * Error with a stable machine-readable code for the UI and automated tests.
  */
@@ -52,13 +48,11 @@ export class SwarSadhikaEngineError extends Error {
     super(String(message), options);
     this.name = 'SwarSadhikaEngineError';
     this.code = code;
-
     if (options.details !== undefined) {
       this.details = options.details;
     }
   }
 }
-
 function assertObject(value, name) {
   if (
     value === null ||
@@ -71,22 +65,18 @@ function assertObject(value, name) {
     );
   }
 }
-
 function normalizeBackend(value) {
   const backend = value == null
     ? 'wasm'
     : String(value).trim().toLowerCase();
-
   if (!VALID_BACKENDS.has(backend)) {
     throw new SwarSadhikaEngineError(
       `Unsupported backend "${backend}". Use "wasm" or "onnx".`,
       'INVALID_BACKEND'
     );
   }
-
   return backend;
 }
-
 function normalizeText(text) {
   if (Array.isArray(text)) {
     const parts = text.map((part) => {
@@ -96,43 +86,35 @@ function normalizeText(text) {
           'INVALID_TEXT'
         );
       }
-
       return part.trim();
     }).filter(Boolean);
-
     if (!parts.length) {
       throw new SwarSadhikaEngineError(
         'Please enter a non-empty Sanskrit text.',
         'EMPTY_TEXT'
       );
     }
-
     return parts;
   }
-
   if (typeof text !== 'string') {
     throw new SwarSadhikaEngineError(
       'Input text must be a string or an array of strings.',
       'INVALID_TEXT'
     );
   }
-
   /*
    * Keep Devanagari, Vedic accent marks, virāma, nukta, and conjuncts intact.
    * Only normalize line endings and reject a truly empty input.
    */
   const normalized = text.replace(/\r\n?/g, '\n').trim();
-
   if (!normalized) {
     throw new SwarSadhikaEngineError(
       'Please enter a non-empty Sanskrit text.',
       'EMPTY_TEXT'
     );
   }
-
   return normalized;
 }
-
 /**
  * The public facade accepts arrays of verses/pādas, while the current
  * Vāgdhenu adapter/upstream API accepts a single string. Join array parts
@@ -141,34 +123,26 @@ function normalizeText(text) {
 function toEngineInputText(text) {
   return Array.isArray(text) ? text.join('\n') : text;
 }
-
 function normalizeSynthesisOptions(options = {}) {
   assertObject(options, 'Synthesis options');
-
   const merged = {
     ...DEFAULT_OPTIONS,
     ...options
   };
-
   merged.backend = normalizeBackend(merged.backend);
-
   if (merged.nfe !== null && merged.nfe !== undefined) {
     const nfe = Number(merged.nfe);
-
     if (!Number.isInteger(nfe) || nfe < 1 || nfe > 128) {
       throw new SwarSadhikaEngineError(
         'nfe must be an integer from 1 through 128.',
         'INVALID_OPTION'
       );
     }
-
     merged.nfe = nfe;
   } else {
     merged.nfe = null;
   }
-
   merged.cfg = Number(merged.cfg);
-
   if (
     !Number.isFinite(merged.cfg) ||
     merged.cfg < 0 ||
@@ -179,9 +153,7 @@ function normalizeSynthesisOptions(options = {}) {
       'INVALID_OPTION'
     );
   }
-
   merged.speed = Number(merged.speed);
-
   if (
     !Number.isFinite(merged.speed) ||
     merged.speed < 0.3 ||
@@ -192,9 +164,7 @@ function normalizeSynthesisOptions(options = {}) {
       'INVALID_OPTION'
     );
   }
-
   merged.seed = Number(merged.seed);
-
   if (
     !Number.isInteger(merged.seed) ||
     merged.seed < 0 ||
@@ -205,10 +175,8 @@ function normalizeSynthesisOptions(options = {}) {
       'INVALID_OPTION'
     );
   }
-
   merged.noSandhi = Boolean(merged.noSandhi);
   merged.lazy = Boolean(merged.lazy);
-
   if (
     merged.baseUrl !== null &&
     merged.baseUrl !== undefined &&
@@ -219,7 +187,6 @@ function normalizeSynthesisOptions(options = {}) {
       'INVALID_OPTION'
     );
   }
-
   for (const callbackName of ['onProgress', 'onChunk']) {
     if (
       merged[callbackName] != null &&
@@ -231,13 +198,10 @@ function normalizeSynthesisOptions(options = {}) {
       );
     }
   }
-
   return merged;
 }
-
 function invokeSafely(callback, payload) {
   if (typeof callback !== 'function') return;
-
   try {
     callback(payload);
   } catch (error) {
@@ -256,11 +220,9 @@ function invokeSafely(callback, payload) {
     }
   }
 }
-
 async function inspectLocalModule(fileName) {
   const url = new URL(fileName, MODULE_DIRECTORY_URL);
   let response;
-
   try {
     // GET is deliberate: the engine source must be real content, not only a
     // successful HEAD response or an HTML fallback page from GitHub Pages.
@@ -278,11 +240,9 @@ async function inspectLocalModule(fileName) {
       { cause: error, details: { file: fileName, url: url.href } }
     );
   }
-
   const contentType = (
     response.headers.get('content-type') || ''
   ).toLowerCase();
-
   if (!response.ok || response.status !== 200) {
     throw new SwarSadhikaEngineError(
       `Required file ${fileName} is not available (HTTP ${response.status}). Expected URL: ${url.href}`,
@@ -290,7 +250,6 @@ async function inspectLocalModule(fileName) {
       { details: { file: fileName, url: url.href, httpStatus: response.status } }
     );
   }
-
   if (contentType.includes('text/html')) {
     throw new SwarSadhikaEngineError(
       `${fileName} returned HTML instead of a JavaScript module. Check the GitHub Pages path/deployment. URL: ${url.href}`,
@@ -298,11 +257,9 @@ async function inspectLocalModule(fileName) {
       { details: { file: fileName, url: url.href, contentType } }
     );
   }
-
   const looksLikeJavaScript = JAVASCRIPT_MIME_MARKERS.some(marker =>
     contentType.includes(marker)
   );
-
   if (!looksLikeJavaScript) {
     throw new SwarSadhikaEngineError(
       `${fileName} is not served with a JavaScript/ECMAScript MIME type (received "${contentType || 'missing'}"). The file may be a placeholder or incorrectly deployed. URL: ${url.href}`,
@@ -310,7 +267,6 @@ async function inspectLocalModule(fileName) {
       { details: { file: fileName, url: url.href, contentType } }
     );
   }
-
   let sourceText;
   try {
     sourceText = await response.text();
@@ -323,7 +279,6 @@ async function inspectLocalModule(fileName) {
       { cause: error, details: { file: fileName, url: url.href } }
     );
   }
-
   if (!sourceText.trim()) {
     throw new SwarSadhikaEngineError(
       `Required JavaScript file ${fileName} is empty.`,
@@ -331,7 +286,6 @@ async function inspectLocalModule(fileName) {
       { details: { file: fileName, url: url.href } }
     );
   }
-
   if (fileName === VENDORED_ENGINE_MODULE_FILE) {
     const requiredMarkers = [
       'VagdhenuWebEngine',
@@ -341,7 +295,6 @@ async function inspectLocalModule(fileName) {
     const missingMarkers = requiredMarkers.filter(marker =>
       !sourceText.includes(marker)
     );
-
     if (missingMarkers.length) {
       throw new SwarSadhikaEngineError(
         `The vendored Vāgdhenu file does not contain the expected browser-engine API markers (${missingMarkers.join(', ')}). It may be a placeholder or the wrong upstream file.`,
@@ -356,7 +309,6 @@ async function inspectLocalModule(fileName) {
       );
     }
   }
-
   return Object.freeze({
     file: fileName,
     url: url.href,
@@ -366,7 +318,6 @@ async function inspectLocalModule(fileName) {
     sourceMarkersChecked: fileName === VENDORED_ENGINE_MODULE_FILE
   });
 }
-
 /**
  * Checks all first-party modules and the pinned vendored engine entry point.
  * This verifies static file delivery and expected API markers only. It does
@@ -376,7 +327,6 @@ async function inspectLocalModule(fileName) {
 export async function checkLocalDependencies() {
   const results = [];
   const failures = [];
-
   for (const fileName of [
     ENGINE_MODULE_FILE,
     TEXT_MODULE_FILE,
@@ -388,7 +338,6 @@ export async function checkLocalDependencies() {
       failures.push({ file: fileName, error });
     }
   }
-
   return Object.freeze({
     ok: failures.length === 0,
     checkedAt: new Date().toISOString(),
@@ -400,7 +349,6 @@ export async function checkLocalDependencies() {
     }))
   });
 }
-
 function verifyVendoredEngineRuntime(implementation) {
   if (!implementation || typeof implementation.getRuntimeInfo !== 'function') {
     throw new SwarSadhikaEngineError(
@@ -408,7 +356,6 @@ function verifyVendoredEngineRuntime(implementation) {
       'RUNTIME_PROVENANCE_UNAVAILABLE'
     );
   }
-
   let runtimeInfo;
   try {
     runtimeInfo = implementation.getRuntimeInfo();
@@ -419,13 +366,11 @@ function verifyVendoredEngineRuntime(implementation) {
       { cause: error }
     );
   }
-
   const expectedUrl = new URL(
     VENDORED_ENGINE_MODULE_FILE,
     MODULE_DIRECTORY_URL
   ).href;
   let actualUrl = null;
-
   try {
     if (typeof runtimeInfo?.sourceUrl === 'string' && runtimeInfo.sourceUrl) {
       actualUrl = new URL(runtimeInfo.sourceUrl, MODULE_DIRECTORY_URL).href;
@@ -433,7 +378,6 @@ function verifyVendoredEngineRuntime(implementation) {
   } catch {
     actualUrl = null;
   }
-
   if (actualUrl !== expectedUrl || runtimeInfo?.sourceLoadedLocally !== true) {
     throw new SwarSadhikaEngineError(
       'The engine source provenance check failed. Only the exact same-origin vendor/vagdhenu-upstream/vagdhenu-onnx.js entry is permitted; external engine-source fallbacks are disabled by index.js.',
@@ -447,31 +391,25 @@ function verifyVendoredEngineRuntime(implementation) {
       }
     );
   }
-
   return Object.freeze({
     sourceUrl: actualUrl,
     sourceLoadedLocally: true,
     runtimeInfo: Object.freeze({ ...runtimeInfo })
   });
 }
-
 async function loadRuntimeModules({ retry = false } = {}) {
   if (cachedRuntimeModules && !retry) {
     return cachedRuntimeModules;
   }
-
   if (cachedRuntimePromise && !retry) {
     return cachedRuntimePromise;
   }
-
   cachedRuntimePromise = (async () => {
     const dependencyReport = await checkLocalDependencies();
-
     if (!dependencyReport.ok) {
       const detail = dependencyReport.failures
         .map((item) => item.message)
         .join('\n');
-
       throw new SwarSadhikaEngineError(
         `Required local engine files are missing or invalid. No fallback TTS was used.\n${detail}`,
         'DEPENDENCIES_UNAVAILABLE',
@@ -480,21 +418,17 @@ async function loadRuntimeModules({ retry = false } = {}) {
         }
       );
     }
-
     let engineModule;
     let textModule;
-
     try {
       const engineUrl = new URL(
         ENGINE_MODULE_FILE,
         MODULE_DIRECTORY_URL
       ).href;
-
       const textUrl = new URL(
         TEXT_MODULE_FILE,
         MODULE_DIRECTORY_URL
       ).href;
-
       [engineModule, textModule] = await Promise.all([
         import(engineUrl),
         import(textUrl)
@@ -511,7 +445,6 @@ async function loadRuntimeModules({ retry = false } = {}) {
         }
       );
     }
-
     if (
       typeof engineModule.VagdhenuWebEngine !== 'function'
     ) {
@@ -520,7 +453,6 @@ async function loadRuntimeModules({ retry = false } = {}) {
         'ENGINE_EXPORT_MISSING'
       );
     }
-
     /*
      * Text helpers are needed for meter/scansion analysis.
      * Do not silently invent them.
@@ -531,33 +463,26 @@ async function loadRuntimeModules({ retry = false } = {}) {
         'TEXT_API_MISMATCH'
       );
     }
-
     cachedRuntimeModules = Object.freeze({
       engineModule,
       textModule,
       dependencyReport
     });
-
     return cachedRuntimeModules;
   })();
-
   try {
     return await cachedRuntimePromise;
   } catch (error) {
     cachedRuntimePromise = null;
-
     if (retry) {
       cachedRuntimeModules = null;
     }
-
     throw error;
   }
 }
-
 async function validateWavContainer(value) {
   let size;
   let prefix;
-
   if (typeof Blob !== 'undefined' && value instanceof Blob) {
     size = value.size;
     prefix = new Uint8Array(
@@ -579,14 +504,12 @@ async function validateWavContainer(value) {
       'INVALID_WAV_RESULT'
     );
   }
-
   if (size < 44 || prefix.byteLength < 12) {
     throw new SwarSadhikaEngineError(
       `The engine returned an audio buffer too small to be a WAV file (${size} bytes).`,
       'INVALID_WAV_RESULT'
     );
   }
-
   const readFourCC = (offset) => String.fromCharCode(
     prefix[offset], prefix[offset + 1], prefix[offset + 2], prefix[offset + 3]
   );
@@ -597,21 +520,18 @@ async function validateWavContainer(value) {
     prefix.byteLength
   ).getUint32(4, true) + 8;
   const wave = readFourCC(8);
-
   if (riff !== 'RIFF' || wave !== 'WAVE') {
     throw new SwarSadhikaEngineError(
       'The engine returned raw samples or non-WAV bytes instead of a WAV file; no fake WAV wrapper was created.',
       'INVALID_WAV_RESULT'
     );
   }
-
   if (declaredRiffBytes > size || declaredRiffBytes < 44) {
     throw new SwarSadhikaEngineError(
       'The WAV RIFF length is inconsistent with the returned audio buffer.',
       'INVALID_WAV_RESULT'
     );
   }
-
   const view = new DataView(
     prefix.buffer,
     prefix.byteOffset,
@@ -623,20 +543,17 @@ async function validateWavContainer(value) {
   let sampleRate = null;
   let bitsPerSample = null;
   let dataBytes = null;
-
   while (offset + 8 <= prefix.byteLength && offset + 8 <= declaredRiffBytes) {
     const chunkId = readFourCC(offset);
     const chunkSize = view.getUint32(offset + 4, true);
     const chunkDataOffset = offset + 8;
     const chunkEnd = chunkDataOffset + chunkSize;
-
     if (chunkEnd > declaredRiffBytes || chunkEnd > size) {
       throw new SwarSadhikaEngineError(
         `The WAV ${chunkId} chunk length exceeds the declared audio buffer.`,
         'INVALID_WAV_RESULT'
       );
     }
-
     if (chunkId === 'fmt ') {
       if (chunkSize < 16 || chunkDataOffset + 16 > prefix.byteLength) {
         throw new SwarSadhikaEngineError(
@@ -657,12 +574,10 @@ async function validateWavContainer(value) {
         );
       }
     }
-
     const nextOffset = chunkEnd + (chunkSize % 2);
     if (nextOffset <= offset) break;
     offset = nextOffset;
   }
-
   if (
     formatCode === null ||
     channels === null ||
@@ -675,14 +590,12 @@ async function validateWavContainer(value) {
       'INVALID_WAV_RESULT'
     );
   }
-
   if (![1, 3, 0xfffe].includes(formatCode)) {
     throw new SwarSadhikaEngineError(
       `Unsupported WAV encoding format ${formatCode}.`,
       'INVALID_WAV_RESULT'
     );
   }
-
   if (
     channels < 1 || channels > 8 ||
     sampleRate < 8000 || sampleRate > 192000 ||
@@ -694,7 +607,6 @@ async function validateWavContainer(value) {
       { details: { channels, sampleRate, bitsPerSample } }
     );
   }
-
   return Object.freeze({
     container: 'RIFF/WAVE',
     bytes: size,
@@ -706,7 +618,6 @@ async function validateWavContainer(value) {
     dataBytes
   });
 }
-
 async function createResultUrl(result) {
   if (!result || typeof result !== 'object') {
     throw new SwarSadhikaEngineError(
@@ -714,14 +625,12 @@ async function createResultUrl(result) {
       'INVALID_ENGINE_RESULT'
     );
   }
-
   const payload = result.blob || result.audioBlob || result.wavBlob || result.wav;
   const isAudioPayload = (
     (typeof Blob !== 'undefined' && payload instanceof Blob) ||
     payload instanceof ArrayBuffer ||
     (ArrayBuffer.isView(payload) && !(payload instanceof DataView))
   );
-
   if (isAudioPayload) {
     const wavValidation = await validateWavContainer(payload);
     const blob = typeof Blob !== 'undefined' && payload instanceof Blob
@@ -734,7 +643,6 @@ async function createResultUrl(result) {
                 payload.byteOffset + payload.byteLength
               )
         ], { type: 'audio/wav' });
-
     // Always create playback from the bytes just inspected, not an unrelated
     // URL which happened to accompany the result object.
     return {
@@ -743,7 +651,6 @@ async function createResultUrl(result) {
       wavValidation
     };
   }
-
   if (typeof result.url !== 'string' || !result.url.trim()) {
     const alternateUrl = result.audioUrl || result.wavUrl || result.outputUrl || result.src;
     if (typeof alternateUrl !== 'string' || !alternateUrl.trim()) {
@@ -754,7 +661,6 @@ async function createResultUrl(result) {
     }
     result = { ...result, url: alternateUrl };
   }
-
   const safeUrl = ensureSafePlaybackUrl(result.url);
   let response;
   try {
@@ -770,7 +676,6 @@ async function createResultUrl(result) {
       { cause: error, details: { url: safeUrl } }
     );
   }
-
   if (!response.ok || response.status !== 200) {
     throw new SwarSadhikaEngineError(
       `The audio URL could not be verified (HTTP ${response.status}).`,
@@ -778,7 +683,6 @@ async function createResultUrl(result) {
       { details: { url: safeUrl, httpStatus: response.status } }
     );
   }
-
   const contentType = (response.headers.get('content-type') || '').toLowerCase();
   if (contentType.includes('text/html') || contentType.includes('javascript')) {
     throw new SwarSadhikaEngineError(
@@ -787,20 +691,16 @@ async function createResultUrl(result) {
       { details: { url: safeUrl, contentType } }
     );
   }
-
   const audioBlob = await response.blob();
   const wavValidation = await validateWavContainer(audioBlob);
-
   return {
     url: URL.createObjectURL(new Blob([audioBlob], { type: 'audio/wav' })),
     owned: true,
     wavValidation
   };
 }
-
 function ensureSafePlaybackUrl(url) {
   let parsed;
-
   try {
     parsed = new URL(url, MODULE_DIRECTORY_URL);
   } catch (error) {
@@ -810,21 +710,18 @@ function ensureSafePlaybackUrl(url) {
       { cause: error }
     );
   }
-
   const validScheme = [
     'blob:',
     'data:',
     'https:',
     'http:'
   ].includes(parsed.protocol);
-
   if (!validScheme) {
     throw new SwarSadhikaEngineError(
       `Unsupported audio URL scheme: ${parsed.protocol}`,
       'INVALID_AUDIO_URL'
     );
   }
-
   if (
     parsed.protocol === 'http:' ||
     parsed.protocol === 'https:'
@@ -838,7 +735,6 @@ function ensureSafePlaybackUrl(url) {
         'REMOTE_AUDIO_URL_REFUSED'
       );
     }
-
     if (
       typeof location !== 'undefined' &&
       location.protocol === 'https:' &&
@@ -850,10 +746,8 @@ function ensureSafePlaybackUrl(url) {
       );
     }
   }
-
   return parsed.href;
 }
-
 /**
  * Lazy adapter that preserves the VagdhenuWebEngine interface expected by
  * the current prototype HTML, while converting absent modules into
@@ -874,11 +768,9 @@ export class VagdhenuWebEngine {
     this.lastDependencyReport = null;
     this.lastRuntimeVerification = null;
   }
-
   get engine() {
     return this._impl;
   }
-
   /**
    * Reports source-provenance and execution states separately. A local module
    * source check must never be represented as proof of real neural inference.
@@ -894,7 +786,6 @@ export class VagdhenuWebEngine {
         readError: error instanceof Error ? error.message : String(error)
       };
     }
-
     return Object.freeze({
       facade: 'Swar-Sadhika index.js',
       backend: this.backendMode,
@@ -908,7 +799,6 @@ export class VagdhenuWebEngine {
       upstreamRuntimeInfo: upstreamInfo
     });
   }
-
   _assertNotDisposed() {
     if (this._disposed) {
       throw new SwarSadhikaEngineError(
@@ -917,7 +807,6 @@ export class VagdhenuWebEngine {
       );
     }
   }
-
   on(eventName, callback) {
     if (
       typeof eventName !== 'string' ||
@@ -928,36 +817,28 @@ export class VagdhenuWebEngine {
         'INVALID_ARGUMENT'
       );
     }
-
     if (!this._listeners.has(eventName)) {
       this._listeners.set(eventName, new Set());
     }
-
     this._listeners.get(eventName).add(callback);
     return this;
   }
-
   off(eventName, callback) {
     this._listeners.get(eventName)?.delete(callback);
     return this;
   }
-
   _emit(eventName, payload) {
     const callbacks = this._listeners.get(eventName);
     if (!callbacks) return;
-
     for (const callback of callbacks) {
       invokeSafely(callback, payload);
     }
   }
-
   async _loadImplementation() {
     this._assertNotDisposed();
-
     if (this._impl) {
       return this._impl;
     }
-
     if (
       this.customBaseUrl !== null &&
       this.customBaseUrl !== undefined &&
@@ -969,20 +850,15 @@ export class VagdhenuWebEngine {
         { details: { option: 'baseUrl', supplied: String(this.customBaseUrl) } }
       );
     }
-
     const modules = await loadRuntimeModules();
-
     this.lastDependencyReport = modules.dependencyReport;
-
     const ActualEngine = modules.engineModule.VagdhenuWebEngine;
-
     // The imported browser adapter's first constructor parameter is canvas,
     // not baseUrl. The supported configuration uses no canvas.
     const onlyPermittedEngineSource = new URL(
       VENDORED_ENGINE_MODULE_FILE,
       MODULE_DIRECTORY_URL
     ).href;
-
     // The adapter accepts a third configuration argument. Supplying exactly
     // one local URL prevents its built-in CDN/GitHub source fallbacks from
     // being used to load the engine implementation. Model assets may still
@@ -992,23 +868,18 @@ export class VagdhenuWebEngine {
       this.backendMode,
       { sourceUrls: [onlyPermittedEngineSource] }
     );
-
     if (this._impl.provider) {
       this.provider = String(this._impl.provider);
     }
-
     this._emit('status', {
       stage: 'module-loaded',
       message: 'Local engine module loaded; model inference has not yet been verified.',
       progress: 0
     });
-
     return this._impl;
   }
-
   async initOnnxSessions(onProgress = null) {
     this._assertNotDisposed();
-
     if (
       onProgress != null &&
       typeof onProgress !== 'function'
@@ -1018,30 +889,24 @@ export class VagdhenuWebEngine {
         'INVALID_ARGUMENT'
       );
     }
-
     if (this._initPromise) {
       return this._initPromise;
     }
-
     this.lastRuntimeVerification = null;
     this._initPromise = (async () => {
       const impl = await this._loadImplementation();
-
       if (typeof impl.initOnnxSessions !== 'function') {
         throw new SwarSadhikaEngineError(
           'Underlying engine does not export initOnnxSessions().',
           'ENGINE_API_MISMATCH'
         );
       }
-
       const forward = (info) => {
         invokeSafely(onProgress, info);
         this._emit('progress', info);
         this._emit('status', info);
       };
-
       const initializationResult = await impl.initOnnxSessions(forward);
-
       if (
         initializationResult?.ok === false ||
         initializationResult?.initialized === false ||
@@ -1056,24 +921,19 @@ export class VagdhenuWebEngine {
           { details: { initializationResult } }
         );
       }
-
       // A resolved initialization promise is not enough: verify the top-level
       // engine source is the exact local vendored entry and not a remote URL.
       this.lastRuntimeVerification = verifyVendoredEngineRuntime(impl);
-
       if (impl.provider) {
         this.provider = String(impl.provider);
       }
-
       this.isWarmedUp = Boolean(impl.isWarmedUp);
-
       this._emit('status', {
         stage: 'initialization-call-complete',
         message: 'Initialization call completed and local source provenance passed. Real inference and audio generation are not yet verified.',
         progress: 1,
         backend: this.backendMode
       });
-
       return {
         ok: true,
         initialized: true,
@@ -1084,7 +944,6 @@ export class VagdhenuWebEngine {
         runtimeVerification: this.lastRuntimeVerification
       };
     })();
-
     try {
       return await this._initPromise;
     } catch (error) {
@@ -1092,7 +951,6 @@ export class VagdhenuWebEngine {
       throw error;
     }
   }
-
   /**
    * Produce the exact Vāgdhenu text-vocabulary signal consumed by the model.
    *
@@ -1105,13 +963,13 @@ export class VagdhenuWebEngine {
   async analyzeInput(text, options = {}) {
     this._assertNotDisposed();
     assertObject(options, 'Input-analysis options');
-
     // Validate the same accepted input types while preserving the Brain's source
     // text contract (line endings normalized, but leading/trailing spaces kept).
-    const validatedText = normalizeText(text);
+    // normalizeText validates both accepted input shapes (string and string[]).
+    // Do not call .trim() on its return value: arrays are intentionally valid.
+    normalizeText(text);
     const sourceText = (Array.isArray(text) ? text.join('\n') : text)
       .replace(/\r\n?/g, '\n');
-
     if (sourceText.length > 200_000) {
       throw new SwarSadhikaEngineError(
         'Input exceeds the maximum allowed length (200000).',
@@ -1124,18 +982,10 @@ export class VagdhenuWebEngine {
         'INVALID_TEXT'
       );
     }
-    if (!validatedText.trim()) {
-      throw new SwarSadhikaEngineError(
-        'Please enter a non-empty Sanskrit text.',
-        'EMPTY_TEXT'
-      );
-    }
-
     const settings = normalizeSynthesisOptions({
       ...options,
       backend: this.backendMode
     });
-
     // A real vocabulary signal is only valid after the actual local engine has
     // loaded its bank and passed the same source-provenance gate as synthesis.
     if (!this.lastRuntimeVerification?.sourceLoadedLocally) {
@@ -1147,13 +997,11 @@ export class VagdhenuWebEngine {
         'REMOTE_ENGINE_SOURCE_REFUSED'
       );
     }
-
     const adapter = await this._loadImplementation();
     const upstreamModule = adapter?._officialModule;
     const upstreamEngine = adapter?._engine;
     const preparePieces = upstreamModule?.preparePieces;
     const vocabulary = upstreamEngine?.bankManifest?.vocab_char_map;
-
     if (typeof preparePieces !== 'function') {
       throw new SwarSadhikaEngineError(
         'The initialized vendored engine does not expose its own preparePieces() helper.',
@@ -1171,7 +1019,6 @@ export class VagdhenuWebEngine {
         'ENGINE_VOCABULARY_UNAVAILABLE'
       );
     }
-
     let prepared;
     try {
       // This is the same helper used by the vendored synthesizeInBrowser path,
@@ -1184,14 +1031,12 @@ export class VagdhenuWebEngine {
         { cause: error }
       );
     }
-
     if (!Array.isArray(prepared?.pieces) || prepared.pieces.length === 0) {
       throw new SwarSadhikaEngineError(
         'Vāgdhenu preparation returned no model-text pieces.',
         'EMPTY_PREPARED_TEXT'
       );
     }
-
     const uniqueUnknownCharacters = new Set();
     let totalCharacterCount = 0;
     let mappedCharacterCount = 0;
@@ -1202,7 +1047,6 @@ export class VagdhenuWebEngine {
         .replace(/;/g, ',')
         .replace(/[“”]/g, '"')
         .replace(/[‘’]/g, "'");
-
       const characterTokens = Array.from(cleanPiece, (character, characterIndex) => {
         totalCharacterCount += 1;
         const hasVocabularyEntry = Object.prototype.hasOwnProperty.call(vocabulary, character);
@@ -1216,7 +1060,6 @@ export class VagdhenuWebEngine {
         }
         if (hasVocabularyEntry) mappedCharacterCount += 1;
         else uniqueUnknownCharacters.add(character);
-
         // Upstream stores (vocab_char_map[character] + 1) in text_in.
         // Unrecognized symbols follow its exact default-vocab-ID 0 behavior.
         return Object.freeze({
@@ -1228,7 +1071,6 @@ export class VagdhenuWebEngine {
           vocabularyEntryFound: hasVocabularyEntry
         });
       });
-
       const tokenIds = characterTokens.map(token => token.modelInputId);
       textTokenIds.push(...tokenIds);
       return Object.freeze({
@@ -1240,7 +1082,6 @@ export class VagdhenuWebEngine {
         textTokenIds: Object.freeze(tokenIds)
       });
     });
-
     return Object.freeze({
       schema: 'swar-sadhika-engine-input/v1',
       sourceText,
@@ -1267,96 +1108,75 @@ export class VagdhenuWebEngine {
       ])
     });
   }
-
   async setBackendMode(mode) {
     this._assertNotDisposed();
-
     const backend = normalizeBackend(mode);
-
     if (
       backend === this.backendMode &&
       this._impl
     ) {
       return this;
     }
-
     if (
       this._impl &&
       typeof this._impl.setBackendMode === 'function'
     ) {
       await this._impl.setBackendMode(backend);
     }
-
     this.backendMode = backend;
     this._initPromise = null;
     this.isWarmedUp = false;
     this.lastRuntimeVerification = null;
-
     if (this._impl && this._impl.provider) {
       this.provider = String(this._impl.provider);
     }
-
     this._emit('status', {
       stage: 'backend-selected',
       backend,
       message: `Backend selected: ${backend}. Inference must still be run and checked.`,
       progress: 0
     });
-
     return this;
   }
-
   async synthesizeInBrowser(
     text,
     options = {},
     onProgress = null
   ) {
     this._assertNotDisposed();
-
     const normalizedText = normalizeText(text);
-
     const settings = normalizeSynthesisOptions({
       ...options,
       backend: this.backendMode
     });
-
     // Ensure the facade's local-source provenance check is completed before
     // any synthesis call, even when a caller skips the separate UI init step.
     if (!this.lastRuntimeVerification) {
       await this.initOnnxSessions(onProgress);
     }
-
     const impl = await this._loadImplementation();
-
     if (typeof impl.synthesizeInBrowser !== 'function') {
       throw new SwarSadhikaEngineError(
         'Underlying engine does not export synthesizeInBrowser().',
         'ENGINE_API_MISMATCH'
       );
     }
-
     const forwardProgress = (info) => {
       invokeSafely(onProgress, info);
-
       // Avoid invoking the same callback twice if passed through both channels.
       if (settings.onProgress !== onProgress) {
         invokeSafely(settings.onProgress, info);
       }
-
       this._emit('progress', info);
       this._emit('status', info);
     };
-
     const userOnChunk = settings.onChunk;
-
     const forwardChunk = async (chunk) => {
       this._emit('chunk', chunk);
-
       if (typeof userOnChunk === 'function') {
         await userOnChunk(chunk);
       }
     };
-
     /*
      * The underlying engine is responsible for actual browser-side inference.
      * No SpeechSynthesis, remote TTS endpoint, or synthetic success fallback
@@ -1375,7 +1195,6 @@ export class VagdhenuWebEngine {
       },
       forwardProgress
     );
-
     if (
       !rawResult ||
       typeof rawResult !== 'object'
@@ -1385,16 +1204,12 @@ export class VagdhenuWebEngine {
         'INVALID_ENGINE_RESULT'
       );
     }
-
     const output = await createResultUrl(rawResult);
     const safeUrl = ensureSafePlaybackUrl(output.url);
-
     if (this._impl.provider) {
       this.provider = String(this._impl.provider);
     }
-
     this.isWarmedUp = Boolean(this._impl.isWarmedUp);
-
     const result = {
       ...rawResult,
       url: safeUrl,
@@ -1405,7 +1220,6 @@ export class VagdhenuWebEngine {
         : normalizedText,
       resultUrlOwnedByAdapter: output.owned,
       audioContainerValidation: output.wavValidation,
-
       /*
        * This is deliberately NOT an independently verified inference PASS.
        * A resolved method alone cannot prove pronunciation quality or
@@ -1420,14 +1234,11 @@ export class VagdhenuWebEngine {
         wavContainerValidated: Boolean(output.wavValidation),
         note: 'A local source URL and valid WAV container do not independently prove that the intended neural model ran or that Sanskrit pronunciation/chant quality is correct.'
       }),
-
       play() {
         if (typeof Audio === 'undefined') {
           return null;
         }
-
         const player = new Audio(safeUrl);
-
         return player.play()
           .then(() => player)
           .catch((error) => {
@@ -1443,21 +1254,16 @@ export class VagdhenuWebEngine {
           });
       }
     };
-
     this._emit('result', result);
     return result;
   }
-
   async destroy() {
     if (this._disposed) return;
-
     this._disposed = true;
-
     const impl = this._impl;
     this._impl = null;
     this._initPromise = null;
     this.lastRuntimeVerification = null;
-
     if (impl) {
       try {
         if (typeof impl.dispose === 'function') {
@@ -1476,11 +1282,9 @@ export class VagdhenuWebEngine {
         });
       }
     }
-
     this._listeners.clear();
   }
 }
-
 /**
  * Create the public chant API.
  *
@@ -1498,10 +1302,8 @@ export async function sanskritTts(
 ) {
   let baseUrl = null;
   let options = {};
-
   if (typeof sourceOrOptions === 'string') {
     const selectedString = sourceOrOptions.trim().toLowerCase();
-
     if (VALID_BACKENDS.has(selectedString)) {
       options = {
         ...maybeOptions,
@@ -1523,56 +1325,45 @@ export async function sanskritTts(
       'INVALID_ARGUMENT'
     );
   }
-
   const config = normalizeSynthesisOptions({
     ...options,
     baseUrl
   });
-
   const engine = new VagdhenuWebEngine(
     config.baseUrl,
     config.backend
   );
-
   const modules = await loadRuntimeModules();
-
   const listeners = new Map([
     ['chunk', new Set()],
     ['progress', new Set()],
     ['status', new Set()],
     ['result', new Set()]
   ]);
-
   const emit = (eventName, value) => {
     for (const listener of listeners.get(eventName) || []) {
       invokeSafely(listener, value);
     }
   };
-
   for (const eventName of listeners.keys()) {
     engine.on(eventName, value => emit(eventName, value));
   }
-
   const notifyProgress = (value) => {
     invokeSafely(config.onProgress, value);
     emit('progress', value);
     emit('status', value);
   };
-
   if (!config.lazy) {
     await engine.initOnnxSessions(notifyProgress);
   }
-
   async function chant(text, perCallOptions = {}) {
     const merged = normalizeSynthesisOptions({
       ...config,
       ...perCallOptions
     });
-
     const input = normalizeText(text);
     const textTools = modules.textModule;
     let scansion = null;
-
     try {
       scansion = textTools.analyzeVerse(toEngineInputText(input));
     } catch (error) {
@@ -1589,7 +1380,6 @@ export async function sanskritTts(
         }`
       });
     }
-
     const result = await engine.synthesizeInBrowser(
       input,
       {
@@ -1603,32 +1393,26 @@ export async function sanskritTts(
       },
       value => invokeSafely(merged.onProgress, value)
     );
-
     return Object.freeze({
       ...result,
       scansion,
-
       play() {
         if (typeof Audio === 'undefined') {
           return null;
         }
-
         const player = new Audio(result.url);
         return player.play().then(() => player);
       }
     });
   }
-
   function stream(text, perCallOptions = {}) {
     const queue = [];
     const waiters = [];
     let completed = false;
     let failure = null;
-
     const resolveWaiters = () => {
       while (waiters.length && (queue.length || completed)) {
         const waiter = waiters.shift();
-
         if (queue.length) {
           waiter.resolve({
             value: queue.shift(),
@@ -1644,15 +1428,12 @@ export async function sanskritTts(
         }
       }
     };
-
     const runPromise = chant(text, {
       ...perCallOptions,
-
       onChunk: async (chunk) => {
         if (typeof perCallOptions.onChunk === 'function') {
           await perCallOptions.onChunk(chunk);
         }
-
         if (waiters.length) {
           waiters.shift().resolve({
             value: chunk,
@@ -1672,13 +1453,11 @@ export async function sanskritTts(
       resolveWaiters();
       throw error;
     });
-
     return {
       result: runPromise,
       then: runPromise.then.bind(runPromise),
       catch: runPromise.catch.bind(runPromise),
       finally: runPromise.finally.bind(runPromise),
-
       [Symbol.asyncIterator]() {
         return {
           async next() {
@@ -1688,21 +1467,17 @@ export async function sanskritTts(
                 done: false
               };
             }
-
             if (failure) throw failure;
-
             if (completed) {
               return {
                 value: undefined,
                 done: true
               };
             }
-
             return new Promise((resolve, reject) => {
               waiters.push({ resolve, reject });
             });
           },
-
           async return() {
             /*
              * This closes the consumer iterator; inference already in
@@ -1710,7 +1485,6 @@ export async function sanskritTts(
              */
             completed = true;
             resolveWaiters();
-
             return {
               value: undefined,
               done: true
@@ -1720,7 +1494,6 @@ export async function sanskritTts(
       }
     };
   }
-
   const voice = Object.assign(
     (text, perCallOptions) => chant(text, perCallOptions),
     {
@@ -1729,23 +1502,19 @@ export async function sanskritTts(
       stream,
       engine,
       options: Object.freeze({ ...config }),
-
       scan(text) {
         const normalized = normalizeText(text);
         return modules.textModule.analyzeVerse(normalized);
       },
-
       analyzeInput(text, perCallOptions = {}) {
         return engine.analyzeInput(text, {
           ...config,
           ...perCallOptions
         });
       },
-
       setBackend(mode) {
         return engine.setBackendMode(mode);
       },
-
       on(eventName, callback) {
         if (
           typeof eventName !== 'string' ||
@@ -1756,58 +1525,44 @@ export async function sanskritTts(
             'INVALID_ARGUMENT'
           );
         }
-
         if (!listeners.has(eventName)) {
           listeners.set(eventName, new Set());
         }
-
         listeners.get(eventName).add(callback);
         return voice;
       },
-
       off(eventName, callback) {
         listeners.get(eventName)?.delete(callback);
         return voice;
       },
-
       async destroy() {
         await engine.destroy();
-
         for (const set of listeners.values()) {
           set.clear();
         }
       }
     }
   );
-
   return voice;
 }
-
 export async function createSwarSadhikaEngine(options = {}) {
   assertObject(options, 'Engine options');
-
   const config = normalizeSynthesisOptions(options);
-
   const engine = new VagdhenuWebEngine(
     config.baseUrl,
     config.backend
   );
-
   if (!config.lazy) {
     await engine.initOnnxSessions(config.onProgress);
   }
-
   return engine;
 }
-
 /**
  * Retry dependency checks after files have been added/redeployed.
  */
 export async function reloadEngineModules() {
   cachedRuntimeModules = null;
   cachedRuntimePromise = null;
-
   return loadRuntimeModules({ retry: true });
 }
-
 export default sanskritTts;
