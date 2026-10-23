@@ -112,7 +112,6 @@ function validateAndOrderRegistry(data) {
     }
   }
 
-  // Stable depth-first topological ordering: dependencies always precede dependents.
   const visiting = new Set();
   const visited = new Set();
   const ordered = [];
@@ -297,7 +296,6 @@ export function boot({ registryUrl = DEFAULT_REGISTRY.href, context = {} } = {})
 export function shutdown() {
   if (shutdownPromise) return shutdownPromise;
   shutdownPromise = (async () => {
-    // Let in-flight activation settle before cleaning the state it created.
     if (bootPromise) {
       try { await bootPromise; } catch { /* boot normally resolves a report; remain defensive */ }
     }
