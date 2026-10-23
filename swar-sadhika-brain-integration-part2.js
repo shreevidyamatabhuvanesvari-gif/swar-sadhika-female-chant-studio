@@ -152,7 +152,9 @@ export async function registerSwarSadhikaModule(api) {
       </div>
       <div class="btn-row" style="margin-top:8px">
         <button class="btn secondary" id="ss-brain-apply-meter" type="button" hidden>अनुमानित छन्द को AI परीक्षण में चुनें</button>
+        <button class="btn primary" id="ss-brain-generate-chant" type="button">चुने गए पाठ से AI Chant बनाएँ</button>
       </div>
+      <p class="hint">यह स्पष्ट कार्रवाई चुने गए स्रोत का मूल पाठ AI परीक्षण बॉक्स में कॉपी करके मौजूदा Vāgdhenu AI जनरेशन शुरू करती है। अनुमानित छन्द अपने-आप लागू नहीं होता। ऑडियो बनने के बाद 9:16 स्क्रीन पर गायन चलाने से मौजूदा ध्वनि-स्तर आधारित अवतार-सिंक चलेगा; यह phoneme-सटीक नहीं है।</p>
       <div id="ss-brain-status" class="status warn" role="status" aria-live="polite" style="margin-top:10px">
         Sanskrit Brain उपलब्ध है। विश्लेषण या संदर्भ-खोज स्वयं शुरू करें।
       </div>
@@ -162,7 +164,7 @@ export async function registerSwarSadhikaModule(api) {
       </details>
       <p class="hint" style="margin-top:10px">
         महत्त्वपूर्ण: छन्द और अक्षर-गणना heuristic संकेत हैं, वैदिक पाठ की शुद्धता का प्रमाण नहीं।
-        यह मॉड्यूल स्वयं AI मॉडल को प्रशिक्षित नहीं करता और वर्तमान inference engine के ऑडियो को अपने-आप नहीं बदलता।
+        यह मॉड्यूल स्वयं AI मॉडल को प्रशिक्षित नहीं करता। AI जनरेशन मौजूदा ऐप इंजन को सौंपा जाता है; सफल inference, सुनाई देने वाला ऑडियो और स्त्री-सदृश स्वर अलग से सत्यापित होने चाहिए।
       </p>
     </div>
   `;
@@ -174,6 +176,7 @@ export async function registerSwarSadhikaModule(api) {
   const analyzeButton = panel.querySelector('#ss-brain-analyze');
   const searchButton = panel.querySelector('#ss-brain-search');
   const applyMeterButton = panel.querySelector('#ss-brain-apply-meter');
+  const generateChantButton = panel.querySelector('#ss-brain-generate-chant');
 
   const findMeterSuggestion = (meter) => {
     const name = String(meter?.name ?? '');
@@ -270,8 +273,73 @@ export async function registerSwarSadhikaModule(api) {
     }
   };
 
+  const generateChantFromSelection = () => {
+    const selected = selectedText(sourceSelect);
+    if (!selected.text.trim()) {
+      setStatus(statusNode, `पहले पाठ लिखें। चुना गया स्रोत: ${selected.source}।`, 'bad');
+      return;
+    }
+
+    const target = document.getElementById('ss-ai-text');
+    const generateButton = document.getElementById('ss-ai-generate');
+    if (!target || !generateButton) {
+      setStatus(statusNode,
+        'मौजूदा AI जनरेशन नियंत्रण उपलब्ध नहीं है। #ss-ai-text और #ss-ai-generate की वास्तविक index.html/app.js integration जाँचें।',
+        'bad');
+      return;
+    }
+
+    try {
+      const meter = document.getElementById('ss-ai-meter')?.value || 'auto';
+      const report = analyzeText(selected.text, { meter });
+      if (report?.sourceTextPreserved !== true || report?.sourceText !== selected.text) {
+        throw new Error('मूल पाठ संरक्षण जाँच विफल हुई; AI जनरेशन शुरू नहीं किया गया।');
+      }
+
+      // Copy only after the user explicitly asks for AI chant generation.
+      // Preserve the selected source verbatim; do not auto-correct or apply an
+      // estimated meter. The existing app owns inference and failure reporting.
+      target.value = selected.text;
+      target.dispatchEvent(new Event('input', { bubbles: true }));
+      target.dispatchEvent(new Event('change', { bubbles: true }));
+
+      if (generateButton.disabled) {
+        setStatus(statusNode,
+          'पाठ AI परीक्षण बॉक्स में कॉपी किया गया, लेकिन AI Generate नियंत्रण अभी disabled है। यदि जनरेशन पहले से चल रही है तो उसके पूरा होने की प्रतीक्षा करें; अन्यथा app.js की स्थिति जाँचें।',
+          'warn');
+        reportNode.textContent = JSON.stringify({
+          source: selected.source,
+          sourceTextPreserved: true,
+          generationStarted: false,
+          note: 'AI Generate नियंत्रण disabled था; कोई जनरेशन शुरू नहीं की गई।',
+          report: summarizeAnalysis(report)
+        }, null, 2);
+        return;
+      }
+
+      reportNode.textContent = JSON.stringify({
+        source: selected.source,
+        sourceTextPreserved: true,
+        generationRequested: true,
+        selectedMeter: meter,
+        estimatedMeterNotAutoApplied: true,
+        report: summarizeAnalysis(report)
+      }, null, 2);
+      generateButton.click();
+      setStatus(statusNode,
+        'भाषिक विश्लेषण पूरा हुआ और मौजूदा Vāgdhenu AI जनरेशन अनुरोध शुरू किया गया। वास्तविक सफलता, त्रुटि और ऑडियो अवधि नीचे AI स्थिति/प्लेयर में जाँचें; यह स्त्री-स्वर या उच्चारण-शुद्धता का प्रमाण नहीं है।',
+        'warn');
+      api.emitStatus('Sanskrit Brain ने मूल पाठ संरक्षित रखते हुए मौजूदा AI chant generation शुरू की।', 'info');
+    } catch (error) {
+      setStatus(statusNode, `AI chant शुरू नहीं हुआ: ${error?.message || error}`, 'bad');
+      reportNode.textContent = '';
+      api.emitStatus(`Sanskrit Brain → AI chant integration विफल: ${error?.message || error}`, 'warn');
+    }
+  };
+
   analyzeButton.addEventListener('click', analyzeFromUI, { signal: controller.signal });
   searchButton.addEventListener('click', searchFromUI, { signal: controller.signal });
+  generateChantButton.addEventListener('click', generateChantFromSelection, { signal: controller.signal });
   applyMeterButton.addEventListener('click', () => {
     const suggested = String(applyMeterButton.dataset.meter || '');
     const meterControl = document.getElementById('ss-ai-meter');
@@ -322,7 +390,9 @@ export async function registerSwarSadhikaModule(api) {
     schema: SWAR_SADHIKA_BRAIN_SCHEMA,
     feature: 'source-preserving-linguistic-analysis-and-local-knowledge-search',
     modifiesOriginalText: false,
-    generatesAudio: false,
-    synthesisIntegration: false
+    generatesAudioDirectly: false,
+    startsExistingSynthesisWorkflow: true,
+    synthesisIntegration: true,
+    avatarSync: 'existing-audio-level-estimate; not-phoneme-accurate'
   });
 }
