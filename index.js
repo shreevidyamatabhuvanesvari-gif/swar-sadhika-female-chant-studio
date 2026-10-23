@@ -1093,6 +1093,181 @@ export class VagdhenuWebEngine {
     }
   }
 
+  /**
+   * Produce the exact Vāgdhenu text-vocabulary signal consumed by the model.
+   *
+   * This method intentionally does not run neural inference or synthesize audio.
+   * It requires the initialized local engine so the character map and piece
+   * preparation helper come from the same vendored engine that will synthesize
+   * the text. The returned IDs cover the prepared user-text portion only; the
+   * inference path also prepends reference tokens and pads the tensor.
+   */
+  async analyzeInput(text, options = {}) {
+    this._assertNotDisposed();
+    assertObject(options, 'Input-analysis options');
+
+    // Validate the same accepted input types while preserving the Brain's source
+    // text contract (line endings normalized, but leading/trailing spaces kept).
+    const validatedText = normalizeText(text);
+    const sourceText = (Array.isArray(text) ? text.join('\n') : text)
+      .replace(/\r\n?/g, '\n');
+
+    if (sourceText.length > 200_000) {
+      throw new SwarSadhikaEngineError(
+        'Input exceeds the maximum allowed length (200000).',
+        'INVALID_TEXT'
+      );
+    }
+    if (sourceText.includes('\u0000')) {
+      throw new SwarSadhikaEngineError(
+        'Input contains a NUL character (U+0000).',
+        'INVALID_TEXT'
+      );
+    }
+    if (!validatedText.trim()) {
+      throw new SwarSadhikaEngineError(
+        'Please enter a non-empty Sanskrit text.',
+        'EMPTY_TEXT'
+      );
+    }
+
+    const settings = normalizeSynthesisOptions({
+      ...options,
+      backend: this.backendMode
+    });
+
+    // A real vocabulary signal is only valid after the actual local engine has
+    // loaded its bank and passed the same source-provenance gate as synthesis.
+    if (!this.lastRuntimeVerification?.sourceLoadedLocally) {
+      await this.initOnnxSessions(settings.onProgress);
+    }
+    if (!this.lastRuntimeVerification?.sourceLoadedLocally) {
+      throw new SwarSadhikaEngineError(
+        'Local Vāgdhenu engine provenance is not verified; vocabulary analysis was refused.',
+        'REMOTE_ENGINE_SOURCE_REFUSED'
+      );
+    }
+
+    const adapter = await this._loadImplementation();
+    const upstreamModule = adapter?._officialModule;
+    const upstreamEngine = adapter?._engine;
+    const preparePieces = upstreamModule?.preparePieces;
+    const vocabulary = upstreamEngine?.bankManifest?.vocab_char_map;
+
+    if (typeof preparePieces !== 'function') {
+      throw new SwarSadhikaEngineError(
+        'The initialized vendored engine does not expose its own preparePieces() helper.',
+        'ENGINE_API_MISMATCH'
+      );
+    }
+    if (
+      !vocabulary ||
+      typeof vocabulary !== 'object' ||
+      Array.isArray(vocabulary) ||
+      !Object.keys(vocabulary).length
+    ) {
+      throw new SwarSadhikaEngineError(
+        'The initialized Vāgdhenu model bank has no valid vocab_char_map.',
+        'ENGINE_VOCABULARY_UNAVAILABLE'
+      );
+    }
+
+    let prepared;
+    try {
+      // This is the same helper used by the vendored synthesizeInBrowser path,
+      // including its model-text transforms and optional noSandhi behavior.
+      prepared = preparePieces(sourceText, settings.noSandhi);
+    } catch (error) {
+      throw new SwarSadhikaEngineError(
+        `Vāgdhenu text preparation failed: ${error instanceof Error ? error.message : String(error)}`,
+        'INPUT_PREPARATION_FAILED',
+        { cause: error }
+      );
+    }
+
+    if (!Array.isArray(prepared?.pieces) || prepared.pieces.length === 0) {
+      throw new SwarSadhikaEngineError(
+        'Vāgdhenu preparation returned no model-text pieces.',
+        'EMPTY_PREPARED_TEXT'
+      );
+    }
+
+    const uniqueUnknownCharacters = new Set();
+    let totalCharacterCount = 0;
+    let mappedCharacterCount = 0;
+    const textTokenIds = [];
+    const pieceReports = prepared.pieces.map((piece, pieceIndex) => {
+      // Match the upstream synthesizeInBrowser cleanup before vocab lookup.
+      const cleanPiece = String(piece)
+        .replace(/;/g, ',')
+        .replace(/[“”]/g, '"')
+        .replace(/[‘’]/g, "'");
+
+      const characterTokens = Array.from(cleanPiece, (character, characterIndex) => {
+        totalCharacterCount += 1;
+        const hasVocabularyEntry = Object.prototype.hasOwnProperty.call(vocabulary, character);
+        const rawValue = hasVocabularyEntry ? vocabulary[character] : 0;
+        const rawTokenId = Number(rawValue);
+        if (!Number.isInteger(rawTokenId) || rawTokenId < 0) {
+          throw new SwarSadhikaEngineError(
+            `Invalid vocabulary ID for U+${character.codePointAt(0).toString(16).toUpperCase()}.`,
+            'ENGINE_VOCABULARY_INVALID'
+          );
+        }
+        if (hasVocabularyEntry) mappedCharacterCount += 1;
+        else uniqueUnknownCharacters.add(character);
+
+        // Upstream stores (vocab_char_map[character] + 1) in text_in.
+        // Unrecognized symbols follow its exact default-vocab-ID 0 behavior.
+        return Object.freeze({
+          index: characterIndex,
+          character,
+          codePoint: `U+${character.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}`,
+          vocabularyId: rawTokenId,
+          modelInputId: rawTokenId + 1,
+          vocabularyEntryFound: hasVocabularyEntry
+        });
+      });
+
+      const tokenIds = characterTokens.map(token => token.modelInputId);
+      textTokenIds.push(...tokenIds);
+      return Object.freeze({
+        index: pieceIndex,
+        text: String(piece),
+        cleanedText: cleanPiece,
+        tokenCount: tokenIds.length,
+        characterTokens: Object.freeze(characterTokens),
+        textTokenIds: Object.freeze(tokenIds)
+      });
+    });
+
+    return Object.freeze({
+      schema: 'swar-sadhika-engine-input/v1',
+      sourceText,
+      sourceTextPreserved: true,
+      backend: this.backendMode,
+      provider: this.provider,
+      vocabularySource: 'initialized Vāgdhenu bankManifest.vocab_char_map (model-asset source may be remote)',
+      vocabularyCharacterCount: Object.keys(vocabulary).length,
+      pieceCount: pieceReports.length,
+      pieces: Object.freeze(pieceReports),
+      textTokenIds: Object.freeze(textTokenIds),
+      textCharacterCount: totalCharacterCount,
+      mappedCharacterCount,
+      unknownCharacterCount: totalCharacterCount - mappedCharacterCount,
+      unknownCharacters: Object.freeze([...uniqueUnknownCharacters]),
+      state: 'MODEL_VOCABULARY_SIGNAL_READY',
+      inferenceExecuted: false,
+      audioGenerated: false,
+      limitations: Object.freeze([
+        'ये IDs initialized model vocabulary और उसी vendored preparePieces() helper से निकले user-text IDs हैं; model-bank assets configured local/Hugging Face sources से आ सकते हैं।',
+        'पूर्ण inference tensor में reference tokens तथा padding भी होते हैं; उन्हें यह API user-text IDs के साथ नहीं मिलाती।',
+        'इस API का चलना वास्तविक neural inference, ऑडियो, उच्चारण गुणवत्ता या महिला-सदृश स्वर का प्रमाण नहीं है।',
+        'Unknown characters upstream के अनुसार vocabulary ID 0 पर map होते हैं; उन्हें सूची में स्पष्ट दिखाया जाता है।'
+      ])
+    });
+  }
+
   async setBackendMode(mode) {
     this._assertNotDisposed();
 
@@ -1558,6 +1733,13 @@ export async function sanskritTts(
       scan(text) {
         const normalized = normalizeText(text);
         return modules.textModule.analyzeVerse(normalized);
+      },
+
+      analyzeInput(text, perCallOptions = {}) {
+        return engine.analyzeInput(text, {
+          ...config,
+          ...perCallOptions
+        });
       },
 
       setBackend(mode) {
