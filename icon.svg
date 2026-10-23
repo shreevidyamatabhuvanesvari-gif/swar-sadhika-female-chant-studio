@@ -1,1 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Swar-Sadhika — Anjali Awasthi</title>
+  <desc id="desc">A radiant golden lotus with a rainbow Om symbol and the moving name Anjali Awasthi on a deep blue background.</desc>
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102c62"/><stop offset=".5" stop-color="#183f78"/><stop offset="1" stop-color="#071b42"/></linearGradient>
+    <radialGradient id="aura" cx="50%" cy="45%" r="58%"><stop offset="0" stop-color="#ffd979" stop-opacity=".3"/><stop offset=".48" stop-color="#6b92cb" stop-opacity=".16"/><stop offset="1" stop-color="#153766" stop-opacity="0"/></radialGradient>
+    <linearGradient id="solar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffce0"/><stop offset=".22" stop-color="#fff0a5"/><stop offset=".47" stop-color="#ffbd37"/><stop offset=".7" stop-color="#fff2b0"/><stop offset="1" stop-color="#e58b17"/></linearGradient>
+    <linearGradient id="petalFront" x1="0" y1="0" x2=".9" y2="1"><stop offset="0" stop-color="#fff9ce"/><stop offset=".28" stop-color="#ffd979"/><stop offset=".67" stop-color="#e8a12d"/><stop offset="1" stop-color="#a85a18"/></linearGradient>
+    <linearGradient id="petalSide" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0bb"/><stop offset=".45" stop-color="#eeb454"/><stop offset="1" stop-color="#a95028"/></linearGradient>
+    <linearGradient id="rainbowOm" gradientUnits="userSpaceOnUse" x1="166" y1="194" x2="350" y2="296"><stop offset="0" stop-color="#ff4a83"/><stop offset=".19" stop-color="#ffb33f"/><stop offset=".38" stop-color="#fff16b"/><stop offset=".56" stop-color="#42f2be"/><stop offset=".73" stop-color="#4dc8ff"/><stop offset=".88" stop-color="#ad8cff"/><stop offset="1" stop-color="#ff77ce"/></linearGradient>
+    <linearGradient id="nameGold" gradientUnits="userSpaceOnUse" x1="180" y1="414" x2="330" y2="445"><stop offset="0" stop-color="#fffce5"/><stop offset=".5" stop-color="#ffe69a"/><stop offset="1" stop-color="#ffd05b"/></linearGradient>
+    <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="rimGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="blur"/><feColorMatrix in="blur" type="matrix" values="1 0 0 0 .2  0 1 0 0 .12  0 0 1 0 0  0 0 0 1 0" result="goldBlur"/><feMerge><feMergeNode in="goldBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="omGlow" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3.2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
 
+  <rect width="512" height="512" fill="url(#night)"/>
+  <circle cx="256" cy="244" r="218" fill="url(#aura)"/>
+
+  <!-- Sun-like rays around the icon -->
+  <g stroke="url(#solar)" stroke-linecap="round" filter="url(#softGlow)" opacity=".92">
+    <path d="M256 4v17" stroke-width="3"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(15 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(30 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(45 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(60 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(75 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(90 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(105 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(120 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(135 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(150 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(165 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(180 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(195 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(210 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(225 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(240 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(255 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(270 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(285 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(300 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(315 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(330 256 256)"/>
+    <path d="M256 4v17" stroke-width="3" transform="rotate(345 256 256)"/>
+  </g>
+
+  <!-- Animated golden perimeter -->
+  <rect x="14" y="14" width="484" height="484" rx="72" fill="none" stroke="url(#solar)" stroke-width="10" filter="url(#rimGlow)" opacity=".96">
+    <animate attributeName="stroke-opacity" values=".78;1;.78" dur="3.8s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-width" values="8;11;8" dur="3.8s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="25" y="25" width="462" height="462" rx="62" fill="none" stroke="#fff5bf" stroke-opacity=".45" stroke-width="2"/>
+
+  <!-- Layered golden lotus petals -->
+  <g filter="url(#softGlow)" stroke="#ffe7a0" stroke-opacity=".8" stroke-width="2.4" stroke-linejoin="round">
+    <path d="M256 339 C216 294 212 241 256 194 C300 241 296 294 256 339Z" fill="url(#petalFront)"/>
+    <path d="M242 343 C183 315 155 269 174 226 C221 250 245 291 242 343Z" fill="url(#petalSide)"/>
+    <path d="M270 343 C329 315 357 269 338 226 C291 250 267 291 270 343Z" fill="url(#petalSide)"/>
+    <path d="M225 352 C162 353 119 323 119 278 C169 279 209 310 225 352Z" fill="url(#petalFront)"/>
+    <path d="M287 352 C350 353 393 323 393 278 C343 279 303 310 287 352Z" fill="url(#petalFront)"/>
+    <path d="M206 357 C151 375 102 358 86 322 C133 307 177 324 206 357Z" fill="url(#petalSide)"/>
+    <path d="M306 357 C361 375 410 358 426 322 C379 307 335 324 306 357Z" fill="url(#petalSide)"/>
+  </g>
+
+  <!-- Lotus petal veins -->
+  <g fill="none" stroke="#fff4c2" stroke-linecap="round" stroke-opacity=".7" stroke-width="2">
+    <path d="M256 322 Q249 269 256 207"/>
+    <path d="M235 326 Q207 277 181 237"/>
+    <path d="M277 326 Q305 277 331 237"/>
+    <path d="M211 343 Q171 314 135 290"/>
+    <path d="M301 343 Q341 314 377 290"/>
+    <path d="M185 351 Q144 340 106 326"/>
+    <path d="M327 351 Q368 340 406 326"/>
+  </g>
+
+  <!-- Multicolour Om -->
+  <text x="256" y="286" text-anchor="middle" font-family="Noto Sans Devanagari, Nirmala UI, Mangal, sans-serif" font-size="148" font-weight="700" fill="url(#rainbowOm)" stroke="#fff6d5" stroke-width="2.4" stroke-linejoin="round" paint-order="stroke fill" filter="url(#omGlow)">ॐ</text>
+
+  <!-- Lotus base -->
+  <path d="M147 365 Q256 407 365 365 Q344 398 256 405 Q168 398 147 365Z" fill="url(#petalFront)" stroke="#fff0b6" stroke-width="2"/>
+  <path d="M172 377 Q256 406 340 377" fill="none" stroke="#fff8d8" stroke-width="2.4" stroke-linecap="round"/>
+
+  <!-- Decorative arc above the name -->
+  <path d="M116 405 Q256 424 396 405" fill="none" stroke="url(#solar)" stroke-width="2.4" stroke-linecap="round" opacity=".88"/>
+
+  <!-- Moving, high-contrast name -->
+  <text x="256" y="439" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="27" font-weight="700" letter-spacing=".45" fill="url(#nameGold)" stroke="#071b42" stroke-width="1.4" paint-order="stroke fill">Anjali Awasthi<animate attributeName="x" values="248;264;248" dur="5.5s" repeatCount="indefinite"/></text>
+
+  <path d="M194 465 Q256 478 318 465" fill="none" stroke="#f8d47c" stroke-opacity=".72" stroke-width="2" stroke-linecap="round"/>
+</svg>
