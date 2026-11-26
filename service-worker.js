@@ -21,7 +21,7 @@
 
 'use strict';
 
-const SHELL_CACHE = 'swar-sadhika-female-chant-shell-v13';
+const SHELL_CACHE = 'swar-sadhika-female-chant-shell-v14';
 const REMOTE_CACHE = 'swar-sadhika-remote-runtime-v1';
 const MODEL_CACHE = 'swar-sadhika-vagdhenu-models-v1';
 const MODEL_META_CACHE = 'swar-sadhika-vagdhenu-models-meta-v2';
@@ -58,6 +58,7 @@ const SHELL_FILES = [
   './swar-sadhika-avatar-lipsync-part2.js',
   './swar-sadhika-brain-integration-part2.js',
   './modules/avatar-mouth-natural-part2.js',
+  './modules/mobile-gpu-capability-test-part2.js',
   './swar-sadhika-brain.js',
   './sanskrit-knowledge-index.json'
 ];
