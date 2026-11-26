@@ -61,7 +61,7 @@ function registerSwarSadhikaModule(api){
   els.shadow.setAttribute('d',q.opening);els.shadow.setAttribute('opacity',String(visible*.12));
   els.aperture.setAttribute('d',q.opening);els.aperture.setAttribute('opacity',String(visible));
   els.rim.setAttribute('d',q.upper);els.rim.setAttribute('opacity',String(clamp((a-.04)*1.9,0,.7)));
-  els.lower.setAttribute('d',q.lower);els.lower.setAttribute('opacity',String(clamp(.12+a*.34,0,.45)));
+  els.lower.setAttribute('d',q.lower);els.lower.setAttribute('opacity',String(visible*clamp(.12+a*.34,0,.45)));
   els.teeth.setAttribute('d',q.teeth);els.teeth.setAttribute('opacity',String(clamp((a-.43)*.52,0,.20)));
   els.shine.setAttribute('d',q.highlight);els.shine.setAttribute('opacity',String(clamp((a-.18)*.22,0,.14)));
   return a;
