@@ -11,7 +11,7 @@ const VERSION = '2.0.0';
 const PATCH_FLAG = '__swarSadhikaVocalSingingPart2';
 const GLOBAL_NAME = 'SwarSadhikaVocalSingingEnginePart2';
 const PROFILE = 'devotional-natural';
-const DEFAULTS = Object.freeze({ nfe: 8, speed: 0.88, cfg: 3.0 });
+const DEFAULTS = Object.freeze({ nfe: 8, speed: 0.90, cfg: 3.0 });
 const state = { installed: false, lastPlan: null, original: null, wrapped: null, controls: [] };
 
 function getDeviceBudget() {
