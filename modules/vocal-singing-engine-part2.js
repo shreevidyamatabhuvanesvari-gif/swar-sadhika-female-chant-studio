@@ -11,7 +11,7 @@ const VERSION = '2.0.0';
 const PATCH_FLAG = '__swarSadhikaVocalSingingPart2';
 const GLOBAL_NAME = 'SwarSadhikaVocalSingingEnginePart2';
 const PROFILE = 'devotional-natural';
-const DEFAULTS = Object.freeze({ nfe: 6, speed: 0.88, cfg: 3.0 });
+const DEFAULTS = Object.freeze({ nfe: 8, speed: 0.88, cfg: 3.0 });
 const state = { installed: false, lastPlan: null, original: null, wrapped: null, controls: [] };
 
 function getDeviceBudget() {
@@ -19,11 +19,12 @@ function getDeviceBudget() {
   const cores = Number(nav.hardwareConcurrency) || 0;
   const memory = Number(nav.deviceMemory) || 0;
   const lowPower = (memory > 0 && memory <= 4) || (cores > 0 && cores <= 4);
+  const highPerformance = !lowPower && memory >= 8 && cores >= 8;
   return Object.freeze({
     cores: cores || null,
     memoryGiB: memory || null,
-    tier: lowPower ? 'mobile-balanced' : 'quality-balanced',
-    recommendedNfe: lowPower ? 4 : DEFAULTS.nfe
+    tier: lowPower ? 'mobile-balanced' : highPerformance ? 'high-performance' : 'quality-balanced',
+    recommendedNfe: lowPower ? 4 : highPerformance ? 8 : 6
   });
 }
 
